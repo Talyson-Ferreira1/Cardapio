@@ -23,6 +23,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
   height: 80%;
+  margin-bottom: 2rem;
 }
 
 .container-main-input label {
