@@ -1,0 +1,29 @@
+A é a 1
+B é a 2
+C é a 3
+D é a 4
+E é a 5
+F é a 6
+G é a 7
+H é a 8
+I é a 9
+J é a 10
+K é a 11
+L é a 12
+M é a 13
+N é a 14
+O é a 15
+P é a 16
+Q é a 17
+R é a 18
+S é a 19
+T é a 20
+U é a 21
+V é a 22
+W é a 23
+X é a 24
+Y é a 25
+Z é a 26
+space 27
+
+161
