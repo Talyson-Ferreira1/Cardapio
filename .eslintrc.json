@@ -1,6 +1,10 @@
 {
-  "extends": "next/core-web-vitals",
+  
+  "extends":[
+    "eslint:recommended",
+    "next/core-web-vitals"
+  ],
   "rules": {
-    "eslint-disable @next/next/no-img-element ": false
+     "@next/next/no-img-element": "off"
    }
 }

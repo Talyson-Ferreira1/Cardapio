@@ -7,7 +7,7 @@
   height: 100%;
 }
 
-.main header {
+header {
   min-height: 250px;
   height: 10vh;
   display: grid;

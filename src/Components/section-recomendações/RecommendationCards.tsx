@@ -1,50 +1,89 @@
-import { SearchProduct } from '@/Components/utils/searchProduct';
+'use client';
+import { useState, useEffect } from 'react';
+import { SearchProduct } from '@/Components/utils/fetchProducts';
 import { FormatCoin } from '../utils/formatCoin';
 
+import ProductsRecommended from './child-components/ProductComponente';
+import LoadingComponent from './child-components/LoadingComponente';
+
 type SearchProps = {
-    Info_Collection: string,
-    Info_DocCollection: string,
-    folderNameImg: string
-}
+  Info_Collection: string;
+  Info_DocCollection: string;
+  folderNameImg: string;
+};
 
-import './recommendation-style.css'
+type ProductProps = {
+  [product: string]: {
+    name: string;
+    description: string;
+    price: number;
+    image: string;
+    id?: string;
+    available?: boolean;
+    stars?: number;
+  };
+};
 
-export default async function RecommendationCards() {
-  
-  let searchProps: SearchProps = {
-    Info_Collection: 'Produtos',
-    Info_DocCollection: 'Recomendacoes',
-    folderNameImg: 'Recommendations'
+import './recommendation-style.css';
+
+export default function RecommendationCards() {
+  const [data, setData] = useState<ProductProps>();
+
+  const FetchProducts = async () => {
+    let searchProps: SearchProps = {
+      Info_Collection: 'Produtos',
+      Info_DocCollection: 'Recomendacoes',
+      folderNameImg: 'Recommendations',
+    };
+
+    const allProducts = await SearchProduct(searchProps);
+    setData(allProducts);
   };
 
-  const allProducts = await SearchProduct(searchProps);
-    
-  const Format = (num:number) => {
-      return FormatCoin(num)
+  const Format = (num: number) => {
+    return FormatCoin(num);
+  };
 
-  }
+  const renderedProducts = () => {
+    if (data) {
+      return Object.keys(data).map((productId) => {
+        const currentProduct = data[productId];
 
-  const renderedProducts = Object.keys(allProducts).map((productId) => {
-    const currentProduct = allProducts[productId];
+        return (
+          <div className="container-product-card" key={productId}>
+            <ProductsRecommended
+              productImage={currentProduct.image}
+              productName={currentProduct.name}
+              productDescription={currentProduct.description}
+              productPrice={Format(currentProduct.price)}
+            />
+          </div>
+        );
+      });
+    } else {
+      return <LoadingComponent />;
+    }
+  };
 
-    return (
-      <div className="container-product-card" key={productId}>
-        <div className="container-product-img">
-          <img src={currentProduct.image} alt="" />
-        </div>
+  useEffect(() => {
+    let alreadyExistData = sessionStorage.getItem('Recommended Products');
 
-        <div className="container-product-info">
-          <h3>{currentProduct.name}</h3>
-          <p>{currentProduct.description}</p>
-          <h4>{Format(currentProduct.price)}</h4>
-        </div>
-      </div>
-    );
-  });
+    if (alreadyExistData) {
+      setData(JSON.parse(alreadyExistData));
+    } else {
+      FetchProducts();
+    }
+  }, []);
 
-  return (
-    <div className='container-all-produts'>
-      {renderedProducts}
-    </div>
-  );
+  useEffect(() => {
+    if (data != undefined) {
+      let cacheDataInSessionStorage = sessionStorage.setItem(
+        'Recommended Products',
+        JSON.stringify(data),
+      );
+      cacheDataInSessionStorage;
+    }
+  }, [data]);
+
+  return <div className="container-all-produts">{renderedProducts()}</div>;
 }

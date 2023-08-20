@@ -1,33 +1,30 @@
-'use client'
+'use client';
 import { useEffect, useState } from 'react';
-import { getFirestore, collection, doc, getDoc } from 'firebase/firestore';
-import { app } from '@/services/firebase';
+import { FetchInfoProducts } from '../utils/FetchInfoProducts';
 
-type tagsProps = {
-  [productName: string]: string;
-}
+import LoadinTagComponent from './child-componentes/LoadingComponent';
 
 import './tags-style.css';
+type formatTags = {
+  [productName: string]: string;
+};
+interface propsFormat {
+  DocCollection: string;
+  DocReference: string;
+}
 
 export default function TagsHeader() {
-  const [tags, setTags] = useState<tagsProps>({});
+  const [tags, setTags] = useState<formatTags>();
 
-  const fetchTagsInDB = async () => {
-    try {
-      const infoDatabase = getFirestore(app);
-      const docCollection = collection(infoDatabase, 'Produtos');
-      const docReference = doc(docCollection, 'Tags');
-      const docSnap = await getDoc(docReference);
+  const fetchProduct = async () => {
+    const tagsPropsValues: propsFormat = {
+      DocCollection: 'Produtos',
+      DocReference: 'Tags',
+    };
 
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        setTags(data);
-      } else {
-        console.log('Documento não encontrado!');
-      }
-    } catch (error) {
-      console.error('Erro ao buscar dados:', error);
-    }
+    let Fetch = await FetchInfoProducts(tagsPropsValues);
+
+    setTags(Fetch);
   };
 
   const filterProducts = (productName: string, idProduct: string) => {
@@ -35,24 +32,44 @@ export default function TagsHeader() {
   };
 
   useEffect(() => {
-    fetchTagsInDB();
+    let alreadyExistData = sessionStorage.getItem('Tags');
+
+    if (alreadyExistData) {
+      setTags(JSON.parse(alreadyExistData));
+    } else {
+      fetchProduct();
+    }
   }, []);
 
-  const renderTags = () => {
-    return Object.keys(tags).map(productName => {
-      const idProduct = tags[productName];
-
-      return (
-        <button key={productName} onClick={() => filterProducts(productName, idProduct)}>
-          {productName}
-        </button>
+  useEffect(() => {
+    if (tags != undefined) {
+      let cacheDataInSessionStorage = sessionStorage.setItem(
+        'Tags',
+        JSON.stringify(tags),
       );
-    });
+      cacheDataInSessionStorage;
+    }
+  }, [tags]);
+
+  const renderTags = () => {
+    if (tags) {
+      return Object.keys(tags).map((productName) => {
+        const idProduct = tags[productName];
+
+        return (
+          <button
+            className="tagButton"
+            key={productName}
+            onClick={() => filterProducts(productName, idProduct)}
+          >
+            {productName}
+          </button>
+        );
+      });
+    } else {
+      return <LoadinTagComponent />;
+    }
   };
 
-  return (
-    <nav className="tags-shortcuts">
-      {renderTags()}
-    </nav>
-  );
+  return <nav className="tags-shortcuts">{renderTags()}</nav>;
 }
