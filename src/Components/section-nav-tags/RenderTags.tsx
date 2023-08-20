@@ -36,9 +36,6 @@ export default function TagsHeader() {
 
   useEffect(() => {
     fetchTagsInDB();
-    let lengthTags = Object.values(tags).length
-    console.log(lengthTags)
-    document.documentElement.style.setProperty('--lengthTags', lengthTags.toString());   
   }, []);
 
   const renderTags = () => {
