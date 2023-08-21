@@ -1,10 +1,14 @@
 'use client';
 import { useEffect, useState } from 'react';
+
 import { SearchProduct } from '../utils/fetchProducts';
 import { FormatCoin } from '../utils/formatCoin';
 
 import ProductsMeal from './chil-components/ProductComponent';
 import LoadingComponent from './chil-components/LoadingComponent';
+
+import './meals-styles.css';
+import Link from 'next/link';
 
 type SearchProps = {
   Info_Collection: string;
@@ -18,13 +22,11 @@ type ProductProps = {
     description: string;
     price: number;
     image: string;
-    id?: string;
-    available?: boolean;
-    stars?: number;
+    id: string;
+    available: boolean;
+    stars: number;
   };
 };
-
-import './meals-styles.css';
 
 export default function Meals() {
   const [data, setData] = useState<ProductProps>();
@@ -50,14 +52,24 @@ export default function Meals() {
         const currentProduct = data[productId];
 
         return (
-          <div className="product-card-container" key={productId}>
-            <ProductsMeal
-              productImage={currentProduct.image}
-              productName={currentProduct.name}
-              productDescription={currentProduct.description}
-              productPrice={Format(currentProduct.price)}
-            />
-          </div>
+          <Link
+            className="link"
+            key={productId}
+            href={{
+              pathname: `/produto/${currentProduct.id}`,
+              query: { data: JSON.stringify(currentProduct) },
+            }}
+            as={`/produto/${encodeURIComponent(currentProduct.id)}`}
+          >
+            <div className="product-card-container">
+              <ProductsMeal
+                productImage={currentProduct.image}
+                productName={currentProduct.name}
+                productDescription={currentProduct.description}
+                productPrice={Format(currentProduct.price)}
+              />
+            </div>
+          </Link>
         );
       });
     } else {
@@ -78,12 +90,25 @@ export default function Meals() {
   }, []);
 
   useEffect(() => {
-    if (data != undefined) {
-      let cacheDataInSessionStorage = sessionStorage.setItem(
-        'Products Meals',
-        JSON.stringify(data),
-      );
-      cacheDataInSessionStorage;
+    if (data !== undefined) {
+      console.log(data);
+      let allProductsInStorage = sessionStorage.getItem('All products');
+      let newData;
+
+      if (allProductsInStorage != null) {
+        newData = { ...JSON.parse(allProductsInStorage) };
+
+        for (let product in data) {
+          if (!Object.prototype.hasOwnProperty.call(newData, product)) {
+            newData[product] = data[product];
+          }
+        }
+      } else {
+        newData = { ...data };
+      }
+
+      sessionStorage.setItem('All products', JSON.stringify(newData));
+      sessionStorage.setItem('Products Meals', JSON.stringify(data));
     }
   }, [data]);
 

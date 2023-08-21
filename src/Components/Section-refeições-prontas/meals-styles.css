@@ -8,10 +8,17 @@
   display: grid;
   gap: 0 0.5rem;
   grid-template-columns: 30% 70%;
+  cursor: pointer;
+  transition: all 0.5s;
   grid-template-rows: 1fr 1fr 1fr;
   box-shadow: 4px 4px 9px 1px rgba(0, 0, 0, 0.29);
   -webkit-box-shadow: 4px 4px 9px 1px rgba(0, 0, 0, 0.29);
+
+  &&:hover {
+    transform: scale(1.03);
+  }
 }
+
 .container-image-eskeleton,
 .product-image-container {
   width: 100%;
