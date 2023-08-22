@@ -3,6 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import SearchBar from '@/Components/section-header/SearchBar';
+import ShoppingCart from '@/Components/section-product-cart/product-cart';
 require('dotenv').config();
 
 const inter = Inter({ subsets: ['latin'] });
@@ -24,6 +25,7 @@ export default function RootLayout({
         <header>
           <SearchBar />
         </header>
+        <ShoppingCart />
         {children}
       </body>
     </html>

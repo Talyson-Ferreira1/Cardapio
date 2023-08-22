@@ -1,11 +1,14 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+
 import Image from 'next/image';
 
 import { FormatCoin } from '@/Components/utils/formatCoin';
 import RenderStar from '@/Components/section-product-details/renderStars';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './product-details-style.css';
 
 type ProductProps = {
@@ -21,6 +24,7 @@ type ProductProps = {
 export default function Page({ params }: { params: { id: string } }) {
   const [data, setData] = useState<ProductProps>();
   const router = useRouter();
+  const notify = () => toast('Produto adicionado');
 
   const returnToHome = () => {
     router.back();
@@ -43,6 +47,23 @@ export default function Page({ params }: { params: { id: string } }) {
     window.open(url, '_blank');
   };
 
+  const addProductCarShop = () => {
+    let productsInLocalStorage = localStorage.getItem('Shopping cart');
+    let newData = [];
+
+    if (productsInLocalStorage != null) {
+      for (let id of JSON.parse(productsInLocalStorage)) {
+        newData.push(id);
+      }
+
+      newData.push(data?.id);
+    } else {
+      newData.push(data?.id);
+    }
+
+    localStorage.setItem('Shopping cart', JSON.stringify(newData));
+  };
+
   useEffect(() => {
     getTheStoredData();
   }, []);
@@ -53,6 +74,20 @@ export default function Page({ params }: { params: { id: string } }) {
 
       return (
         <>
+          <div className="container-toast">
+            <ToastContainer
+              position="top-right"
+              autoClose={1000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+            />
+          </div>
           <button className="return-button" onClick={returnToHome}>
             <Image
               src="/icons/arrow-left.svg"
@@ -63,6 +98,7 @@ export default function Page({ params }: { params: { id: string } }) {
             />
             <span>Voltar</span>
           </button>
+
           <div className="container-details-img">
             <Image
               src={image}
@@ -72,13 +108,17 @@ export default function Page({ params }: { params: { id: string } }) {
               height="250"
             />
           </div>
+
           <div className="container-detail-info">
             <h1 className="details-product-name">{data.name}</h1>
+
             <div className="details-stars">
               <RenderStar counter={data.stars} />
             </div>
+
             <p className="details-description">{data.description}</p>
             <h2 className="details-price">{FormatCoin(data.price)}</h2>
+
             <button className="details-whatsapp" onClick={openWhatsApp}>
               <Image
                 src="/icons/whatsapp.svg"
@@ -89,7 +129,14 @@ export default function Page({ params }: { params: { id: string } }) {
               />
               Pedir no whatsapp
             </button>
-            <button className="details-add-carShop">
+
+            <button
+              className="details-add-carShop"
+              onClick={() => {
+                addProductCarShop();
+                notify();
+              }}
+            >
               <Image
                 src="/icons/bag.svg"
                 alt="Product image"

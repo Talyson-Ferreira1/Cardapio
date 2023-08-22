@@ -4,6 +4,7 @@
  * todo: Salvar as informações no sessionStorage, afim de evitar requisições desnecessárias.
  * todo: Migrar o logo e a lupa ara o componente image
  * todo: subir o scroll no product-details
+ * todo: criar um toast para indicar que adicionou no carinho
  * Descobrir uma forma de enviar mensagens no whatsap, integrar com a web.
  * Descobrir como irá funcionr  a lógica de avaliação do produto.
  *

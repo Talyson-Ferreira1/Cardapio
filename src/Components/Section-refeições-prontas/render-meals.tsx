@@ -91,7 +91,6 @@ export default function Meals() {
 
   useEffect(() => {
     if (data !== undefined) {
-      console.log(data);
       let allProductsInStorage = sessionStorage.getItem('All products');
       let newData;
 
