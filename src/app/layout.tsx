@@ -3,7 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import SearchBar from '@/Components/section-header/SearchBar';
-import ShoppingCart from '@/Components/section-product-cart/product-cart';
+import ShoppingCart from '@/Components/section-bag-shopping/product-cart';
 require('dotenv').config();
 
 const inter = Inter({ subsets: ['latin'] });

@@ -73,3 +73,72 @@ const Meals = {
 };
 
 Meals;
+/* 'use client';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+
+import ProductInBag from '../section-bag-shopping/child-components/product';
+import './style-shoping-cart.css';
+
+export default function ProductCart() {
+  const [isOpen, setIsOpen] = useState<boolean>();
+  const [fullPriceProducts, setFullPriceProduct] = useState<number>(0);
+  const AllProducts = sessionStorage.getItem('All products');
+
+  function getFullPrice(newPrice: number) {
+    setFullPriceProduct(fullPriceProducts + newPrice);
+  }
+
+  const RenderProductsInThebag = () => {
+    const ProductsInTheBag = localStorage.getItem('Shopping cart');
+
+    if (ProductsInTheBag === null) {
+      return <h1>Adicione produtos</h1>;
+    } else if (AllProducts != null) {
+      let ProductsInTheBagConverted = JSON.parse(ProductsInTheBag);
+      let AllProductsConverted = JSON.parse(AllProducts);
+
+      return (
+        <div
+          className={`container-shopping-cart ${isOpen ? 'open' : 'closed'}`}
+        >
+          <div className={`list-products ${isOpen ? 'open' : 'closed'}`}>
+            {ProductsInTheBagConverted.map((element: string, index: number) => (
+              <ProductInBag
+                key={index}
+                getFullPrice={getFullPrice}
+                name={AllProductsConverted[element].name}
+                image={AllProductsConverted[element].image}
+                price={AllProductsConverted[element].price}
+              />
+            ))}
+          </div>
+        </div>
+      );
+    }
+  };
+
+  useEffect(() => {
+    console.log(fullPriceProducts);
+  }, [fullPriceProducts]);
+
+  return (
+    <>
+      <button
+        className={`button-shopping-cart ${isOpen ? 'open' : ''}`}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <Image
+          src="/icons/bag.svg"
+          alt="shopping cart"
+          layout="insintric"
+          width="20"
+          height="20"
+        />
+      </button>
+
+      {RenderProductsInThebag()}
+    </>
+  );
+}
+ */

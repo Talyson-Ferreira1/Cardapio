@@ -6,6 +6,7 @@
   overflow: auto;
   padding: 1rem 2rem;
 }
+
 .container-loading-card,
 .container-product-card {
   display: grid;
@@ -85,6 +86,10 @@
 }
 
 /* Loading Style */
+.container-product-card-loading {
+  display: flex;
+  gap: 1rem;
+}
 .container-loading-card {
   background: white;
 }

@@ -1,14 +1,15 @@
 'use client';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { SearchProduct } from '../utils/fetchProducts';
 import { FormatCoin } from '../utils/formatCoin';
-
+import { UpdateSectionProducts } from '../utils/UpdateSectionProduct';
+import { UpdateAllProducts } from '../utils/UpdateAllProducts';
 import ProductsMeal from './chil-components/ProductComponent';
 import LoadingComponent from './chil-components/LoadingComponent';
 
 import './meals-styles.css';
-import Link from 'next/link';
 
 type SearchProps = {
   Info_Collection: string;
@@ -78,37 +79,13 @@ export default function Meals() {
   };
 
   useEffect(() => {
-    let alreadyExistData = sessionStorage.getItem('Products Meals');
-
-    if (alreadyExistData) {
-      setData(JSON.parse(alreadyExistData));
-      console.log('Produto resgatado');
-    } else {
-      FetchProducts();
-      console.log('Produto requisitado');
-    }
+    let alreadyExistData = sessionStorage.getItem('Products meals');
+    alreadyExistData ? setData(JSON.parse(alreadyExistData)) : FetchProducts();
   }, []);
 
   useEffect(() => {
-    if (data !== undefined) {
-      let allProductsInStorage = sessionStorage.getItem('All products');
-      let newData;
-
-      if (allProductsInStorage != null) {
-        newData = { ...JSON.parse(allProductsInStorage) };
-
-        for (let product in data) {
-          if (!Object.prototype.hasOwnProperty.call(newData, product)) {
-            newData[product] = data[product];
-          }
-        }
-      } else {
-        newData = { ...data };
-      }
-
-      sessionStorage.setItem('All products', JSON.stringify(newData));
-      sessionStorage.setItem('Products Meals', JSON.stringify(data));
-    }
+    data !== undefined &&
+      (UpdateAllProducts(data), UpdateSectionProducts(data, 'Products meals'));
   }, [data]);
 
   return <>{renderedProducts()}</>;

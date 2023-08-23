@@ -1,6 +1,17 @@
-export function UpdateAllProducts({ data }: any) {
-  console.log(data);
-  let allProductsInStorage = sessionStorage.getItem('All products');
+type ProductProps = {
+  [product: string]: {
+    name: string;
+    description: string;
+    price: number;
+    image: string;
+    id: string;
+    available: boolean;
+    stars: number;
+  };
+};
+
+export function UpdateAllProducts(data: ProductProps) {
+  let allProductsInStorage = localStorage.getItem('All products');
   let newData;
 
   if (allProductsInStorage != null) {
@@ -15,8 +26,5 @@ export function UpdateAllProducts({ data }: any) {
     newData = { ...data };
   }
 
-  sessionStorage.setItem('All products', JSON.stringify(newData));
-  return true;
+  localStorage.setItem('All products', JSON.stringify(newData));
 }
-
-/* Fazer essa merda funcionar */

@@ -1,10 +1,15 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+
 import { SearchProduct } from '@/Components/utils/fetchProducts';
 import { FormatCoin } from '../utils/formatCoin';
-
+import { UpdateAllProducts } from '../utils/UpdateAllProducts';
+import { UpdateSectionProducts } from '../utils/UpdateSectionProduct';
 import ProductsRecommended from './child-components/ProductComponente';
 import LoadingComponent from './child-components/LoadingComponente';
+
+import './recommendation-style.css';
 
 type SearchProps = {
   Info_Collection: string;
@@ -18,13 +23,11 @@ type ProductProps = {
     description: string;
     price: number;
     image: string;
-    id?: string;
-    available?: boolean;
-    stars?: number;
+    id: string;
+    available: boolean;
+    stars: number;
   };
 };
-
-import './recommendation-style.css';
 
 export default function RecommendationCards() {
   const [data, setData] = useState<ProductProps>();
@@ -46,20 +49,34 @@ export default function RecommendationCards() {
 
   const renderedProducts = () => {
     if (data) {
-      return Object.keys(data).map((productId) => {
-        const currentProduct = data[productId];
+      return (
+        <div className="container-all-produts">
+          {Object.keys(data).map((productId) => {
+            const currentProduct = data[productId];
 
-        return (
-          <div className="container-product-card" key={productId}>
-            <ProductsRecommended
-              productImage={currentProduct.image}
-              productName={currentProduct.name}
-              productDescription={currentProduct.description}
-              productPrice={Format(currentProduct.price)}
-            />
-          </div>
-        );
-      });
+            return (
+              <Link
+                className="link"
+                key={productId}
+                href={{
+                  pathname: `/produto/${currentProduct.id}`,
+                  query: { data: JSON.stringify(currentProduct) },
+                }}
+                as={`/produto/${encodeURIComponent(currentProduct.id)}`}
+              >
+                <div className="container-product-card" key={productId}>
+                  <ProductsRecommended
+                    productImage={currentProduct.image}
+                    productName={currentProduct.name}
+                    productDescription={currentProduct.description}
+                    productPrice={Format(currentProduct.price)}
+                  />
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      );
     } else {
       return <LoadingComponent />;
     }
@@ -68,34 +85,14 @@ export default function RecommendationCards() {
   useEffect(() => {
     let alreadyExistData = sessionStorage.getItem('Recommended Products');
 
-    if (alreadyExistData) {
-      setData(JSON.parse(alreadyExistData));
-    } else {
-      FetchProducts();
-    }
+    alreadyExistData ? setData(JSON.parse(alreadyExistData)) : FetchProducts();
   }, []);
 
   useEffect(() => {
-    if (data !== undefined) {
-      let allProductsInStorage = sessionStorage.getItem('All products');
-      let newData;
-
-      if (allProductsInStorage != null) {
-        newData = { ...JSON.parse(allProductsInStorage) };
-
-        for (let product in data) {
-          if (!Object.prototype.hasOwnProperty.call(newData, product)) {
-            newData[product] = data[product];
-          }
-        }
-      } else {
-        newData = { ...data };
-      }
-
-      sessionStorage.setItem('Recommended Products', JSON.stringify(data));
-      sessionStorage.setItem('All products', JSON.stringify(newData));
-    }
+    data !== undefined &&
+      (UpdateAllProducts(data),
+      UpdateSectionProducts(data, 'Recommended Products'));
   }, [data]);
 
-  return <div className="container-all-produts">{renderedProducts()}</div>;
+  return <>{renderedProducts()}</>;
 }

@@ -1,6 +1,6 @@
 export default function LoadingComponent() {
   return (
-    <>
+    <div className="container-product-card-loading">
       <div className="container-loading-card">
         <div className="container-loading-img"></div>
 
@@ -64,6 +64,6 @@ export default function LoadingComponent() {
           <div className="eskeleton"></div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
