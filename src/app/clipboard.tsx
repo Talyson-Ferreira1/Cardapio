@@ -1,4 +1,4 @@
-const Meals = {
+/* const Meals = {
   '161141721531273151327618114715': {
     name: 'Panqueca com frango',
     description:
@@ -70,9 +70,114 @@ const Meals = {
     available: false,
     stars: 5,
   },
+}; */
+
+/* 'use client';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+
+import ProductInBag from './child-components/Product';
+
+import './style-shoping-cart.css';
+
+type ProductProps = {
+  [product: string]: {
+    name: string;
+    description: string;
+    price: number;
+    image: string;
+    id: string;
+    available: boolean;
+    stars: number;
+  };
 };
 
-Meals;
+type ProductBagShopping = {
+  [id: string]: number;
+};
+
+export default function ProductCart() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [hasProduct, setHasProduct] = useState<boolean>(false);
+  const [fullPriceProducts, setFullPriceProduct] = useState<number>(0);
+  const [productsInBag, setProductsInBag] = useState<ProductBagShopping>({});
+  const [allProducts, setAllProducts] = useState<ProductProps>({});
+  const [productsInStorage, setProductsInStorage] = useState({});
+
+  function getFullPrice(newPrice: number) {
+    setFullPriceProduct((prevPrice) => prevPrice + newPrice);
+  }
+
+  useEffect(() => {
+    let getProductsInStorage = localStorage.getItem('Shopping cart');
+
+    if (getProductsInStorage) {
+      setProductsInStorage(getProductsInStorage);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(fullPriceProducts);
+  }, [fullPriceProducts]);
+
+  useEffect(() => {
+    const AllProducts = localStorage.getItem('All products');
+
+    if (productsInStorage && AllProducts) {
+      setProductsInBag(JSON.parse(productsInStorage));
+      setAllProducts(JSON.parse(AllProducts));
+    }
+    console.log(productsInBag);
+  }, [productsInStorage]);
+
+  useEffect(() => {
+    if (Object.values(productsInBag).length === 0) {
+      setHasProduct(false);
+    } else {
+      setHasProduct(true);
+    }
+  }, [productsInBag]);
+
+  return (
+    <>
+      <button
+        className={`button-shopping-cart ${isOpen ? 'open' : ''}`}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <Image
+          src="/icons/bag.svg"
+          alt="shopping cart"
+          layout="intrinsic"
+          width="20"
+          height="20"
+        />
+      </button>
+      <div className={`container-shopping-cart ${isOpen ? 'open' : 'closed'}`}>
+        <div className={`list-products ${isOpen ? 'open' : 'closed'}`}>
+          {hasProduct ? (
+            Object.keys(productsInBag).map(
+              (productId: string, index: number) => (
+                <ProductInBag
+                  key={index}
+                  getFullPrice={getFullPrice}
+                  id={allProducts[productId].id}
+                  name={allProducts[productId].name}
+                  image={allProducts[productId].image}
+                  price={allProducts[productId].price}
+                />
+              ),
+            )
+          ) : (
+            <h1>Adicione produtos</h1>
+          )}
+        </div>
+        <div className="container-full-price"></div>
+      </div>
+    </>
+  );
+}
+ */
+
 /* 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';

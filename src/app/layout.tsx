@@ -2,8 +2,9 @@ import React from 'react';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { Providers } from '@/context';
 import SearchBar from '@/Components/section-header/SearchBar';
-import ShoppingCart from '@/Components/section-bag-shopping/product-cart';
+import ButtonToOpenBagShopping from '@/Components/section-bag-shopping-copy/button';
 require('dotenv').config();
 
 const inter = Inter({ subsets: ['latin'] });
@@ -20,14 +21,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <header>
-          <SearchBar />
-        </header>
-        <ShoppingCart />
-        {children}
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body className={inter.className}>
+          <header>
+            <SearchBar />
+          </header>
+          <ButtonToOpenBagShopping />
+          {children}
+        </body>
+      </html>
+    </Providers>
   );
 }
