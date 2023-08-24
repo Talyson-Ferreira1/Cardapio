@@ -2,7 +2,7 @@
 .meal-product-card {
   width: 100%;
   max-width: 50rem;
-  height: 100px;
+  height: 120px;
   display: grid;
   grid-template-columns: 35% 65%;
   grid-template-rows: 1fr 1fr 1fr;
@@ -44,7 +44,7 @@
 .title {
   align-self: center;
   padding: 0 1rem;
-  font-size: clamp(16px, 1.5rem 32px);
+  font-size: clamp(10px, 1rem 32px);
   color: var(--gray-color-2);
 }
 
