@@ -78,7 +78,7 @@ export default function ProductBag({
           -
         </button>
       </span>
-      <h2 className="price-product-bag">{FormatCoin(price)}</h2>
+      <h2 className="price-product-shopping-bag">{FormatCoin(price)}</h2>
     </div>
   );
 }

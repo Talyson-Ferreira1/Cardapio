@@ -69,7 +69,11 @@
 }
 
 .name-product-shopping-bag {
-  font-size: clamp(10px, 2vw, 25px);
+  font-size: clamp(12px, 2vw, 25px);
+}
+
+.price-product-shopping-bag {
+  font-size: clamp(10px, 1.5vw, 22px);
 }
 
 .increase button {
