@@ -95,6 +95,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 src="/icons/whatsapp.svg"
                 alt="Product image"
                 layout="intrinsic"
+                objectFit="cover"
                 width="20"
                 height="20"
               />

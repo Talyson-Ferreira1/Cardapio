@@ -5,6 +5,8 @@ interface ProductProps {
   productPrice: string;
 }
 
+import '../recommendation-style.css';
+
 export default function ProductsRecommended({
   productImage,
   productName,

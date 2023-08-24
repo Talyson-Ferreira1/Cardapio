@@ -85,7 +85,7 @@
   align-self: center;
 }
 
-/* Loading Style */
+/* ------------------ Style of Loading component ------------------ */
 .container-product-card-loading {
   display: flex;
   gap: 1rem;

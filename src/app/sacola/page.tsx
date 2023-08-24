@@ -118,11 +118,15 @@ export default function BagShopping() {
           <h1>Adicione produtos</h1>
         )}
       </>
-      <div className="container-total-price">
-        <span>Valor total</span>
-        <span>{FormatCoin(totalPrice)}</span>
-        <button onClick={openWhatsApp}>Finalizar pedido</button>
-      </div>
+      <>
+        {productsInBag && allProducts && (
+          <div className="container-total-price">
+            <span>Valor total</span>
+            <span>{FormatCoin(totalPrice)}</span>
+            <button onClick={openWhatsApp}>Finalizar pedido</button>
+          </div>
+        )}
+      </>
     </main>
   );
 }

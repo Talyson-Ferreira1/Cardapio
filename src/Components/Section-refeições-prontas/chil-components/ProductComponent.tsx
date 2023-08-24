@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 interface ProductProps {
   productImage: string;
   productName: string;
@@ -6,6 +8,7 @@ interface ProductProps {
 }
 
 import '../meals-styles.css';
+
 export default function ProductsMeal({
   productImage,
   productName,
@@ -14,8 +17,15 @@ export default function ProductsMeal({
 }: ProductProps) {
   return (
     <>
-      <div className="product-image-container">
-        <img className="img" src={productImage} alt="Product image" />
+      <div className="image-container-meal-products">
+        <Image
+          src={productImage}
+          alt="Product image"
+          layout="intrinsic"
+          objectFit="cover"
+          width={300}
+          height={300}
+        />
       </div>
 
       <h3 className="title">{productName}</h3>

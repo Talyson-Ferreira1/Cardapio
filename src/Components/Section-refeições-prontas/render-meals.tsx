@@ -62,7 +62,7 @@ export default function Meals() {
             }}
             as={`/produto/${encodeURIComponent(currentProduct.id)}`}
           >
-            <div className="product-card-container">
+            <div className="meal-product-card">
               <ProductsMeal
                 productImage={currentProduct.image}
                 productName={currentProduct.name}
