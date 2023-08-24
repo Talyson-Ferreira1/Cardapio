@@ -44,7 +44,7 @@
 .title {
   align-self: center;
   padding: 0 1rem;
-  font-size: clamp(8px, 0.9rem 25px);
+  font-size: clamp(16px, 1.5rem 32px);
   color: var(--gray-color-2);
 }
 
