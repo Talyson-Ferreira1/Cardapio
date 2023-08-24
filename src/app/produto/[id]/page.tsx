@@ -38,12 +38,38 @@ export default function Page({ params }: { params: { id: string } }) {
   };
 
   const openWhatsApp = () => {
-    const message = `Olá! Gostaria de fazer um pedido. \n- ${data?.name} (${data?.description}).`;
+    let getBagShoppingInLocStorage = localStorage.getItem('Shopping cart');
+    let getAllProductsInLocStorage = localStorage.getItem('All products');
+    let message = 'Olá! Gostaria de fazer um pedido.\n';
+
+    if (getBagShoppingInLocStorage && getAllProductsInLocStorage) {
+      let BagProducts = JSON.parse(getBagShoppingInLocStorage);
+      let AllProducts = JSON.parse(getAllProductsInLocStorage);
+
+      for (let product in BagProducts) {
+        const quantity = BagProducts[product];
+        const productName = AllProducts[product].name;
+        const productDescription = AllProducts[product].description;
+
+        message += `${quantity} X "${productName}": ("${productDescription}")\n`;
+      }
+    }
 
     const phoneNumber = '5588993707881';
     const encodedMessage = encodeURIComponent(message);
-    const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    window.open(url, '_blank');
+
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent,
+      )
+    ) {
+      // Open WhatsApp app
+      window.location.href = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+    } else {
+      // Open WhatsApp web
+      const url = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+      window.open(url, '_blank');
+    }
   };
 
   const saveProductInBag = () => {
