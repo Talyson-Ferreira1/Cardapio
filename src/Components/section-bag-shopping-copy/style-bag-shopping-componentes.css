@@ -61,6 +61,7 @@
   cursor: pointer;
   color: white;
   font-weight: 700;
+  font-size: 1rem;
 }
 
 .image-product-shopping-bag {
@@ -69,15 +70,17 @@
 }
 
 .name-product-shopping-bag {
+  color: var(--gray-color-2);
   font-size: clamp(12px, 2vw, 25px);
 }
 
 .price-product-shopping-bag {
+  color: var(--green-color-1);
   font-size: clamp(10px, 1.5vw, 22px);
 }
 
 .increase button {
-  background-color: rgb(16, 201, 16);
+  background-color: var(--green-color-1);
 }
 
 .decrease button {

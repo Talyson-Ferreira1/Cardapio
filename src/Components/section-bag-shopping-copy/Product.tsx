@@ -11,8 +11,7 @@ type ProductInBagProps = {
   image: string;
   price: number;
   id: string;
-  quantityOfProduct: number;
-  /*  getFullPrice: (_price: number) => void; */
+  handleChange: (_change: boolean) => void;
 };
 
 export default function ProductBag({
@@ -20,7 +19,7 @@ export default function ProductBag({
   image,
   price,
   id,
-  quantityOfProduct,
+  handleChange,
 }: ProductInBagProps) {
   const [quantity, setQuantity] = useState<number>(1);
   const UpdateQuantityInStorage = (action: string) => {
@@ -38,11 +37,11 @@ export default function ProductBag({
       let productConvertedToObj = JSON.parse(getBagShoppingInLocStorage);
       setQuantity(productConvertedToObj[id]);
     }
+    handleChange(true);
   };
 
   useEffect(() => {
     UpdateStateQuantity();
-    console.log(quantityOfProduct);
   }, []);
 
   return (
