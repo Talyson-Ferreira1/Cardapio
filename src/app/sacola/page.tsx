@@ -65,8 +65,19 @@ export default function BagShopping() {
 
     const phoneNumber = '5588993707881';
     const encodedMessage = encodeURIComponent(message);
-    const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    window.open(url, '_blank');
+
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent,
+      )
+    ) {
+      // Open WhatsApp app
+      window.location.href = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+    } else {
+      // Open WhatsApp web
+      const url = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+      window.open(url, '_blank');
+    }
   };
 
   useEffect(() => {
