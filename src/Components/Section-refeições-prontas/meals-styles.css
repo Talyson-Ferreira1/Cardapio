@@ -2,10 +2,10 @@
 .meal-product-card {
   width: 100%;
   max-width: 50rem;
-  height: 120px;
+  height: 130px;
   display: grid;
   grid-template-columns: 35% 65%;
-  grid-template-rows: 40px 40px 40px;
+  grid-template-rows: repeat(3, 1fr);
   gap: 0 0.5rem;
   overflow: hidden;
   border-radius: 15px;
@@ -37,18 +37,18 @@
 
 .image-container-meal-products {
   display: flex;
-  align-items: center;
+  align-content: center;
   justify-content: flex-start;
 }
 
-.title {
+.meal-product-card .title {
   align-self: center;
   padding: 0 1rem;
-  font-size: clamp(16px, 1.5rem 32px);
+  font-size: clamp(10px, 0.8rem 32px);
   color: var(--gray-color-2);
 }
 
-.description {
+.meal-product-card .description {
   align-self: center;
   flex-wrap: wrap;
   font-weight: 500;
@@ -57,7 +57,7 @@
   color: var(--gray-color-3);
 }
 
-.price {
+.meal-product-card .price {
   align-self: center;
   padding: 0 1rem;
   color: var(--green-color-2);
