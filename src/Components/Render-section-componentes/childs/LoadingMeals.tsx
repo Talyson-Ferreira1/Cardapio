@@ -1,4 +1,4 @@
-export default function Mealsloading() {
+export default function LoadingMeals() {
   return (
     <>
       <div className="container-card-eskeleton">

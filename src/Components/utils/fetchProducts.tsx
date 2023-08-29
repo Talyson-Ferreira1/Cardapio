@@ -23,6 +23,7 @@ type ProductProps = {
     name: string;
     description: string;
     price: number;
+    category: string;
     image: string;
     id: string;
     available: boolean;

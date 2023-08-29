@@ -71,179 +71,67 @@
     stars: 5,
   },
 }; */
+/* 
 
-/* 'use client';
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
+import {
+  getFirestore,
+  collection,
+  setDoc,
+  doc,
+  getDoc,
+} from 'firebase/firestore';
+import { getStorage, ref, uploadBytes } from 'firebase/storage';
 
-import ProductInBag from './child-components/Product';
 
-import './style-shoping-cart.css';
+import { convertStringToNumbers } from '@/Components/utils/CreateIdProduct';
 
-type ProductProps = {
-  [product: string]: {
-    name: string;
-    description: string;
-    price: number;
-    image: string;
-    id: string;
-    available: boolean;
-    stars: number;
-  };
-};
 
-type ProductBagShopping = {
-  [id: string]: number;
-};
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+  const SendProductCollection = collection(db, 'Produtos');
+  const docRef = doc(SendProductCollection, 'AllProducts');
 
-export default function ProductCart() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [hasProduct, setHasProduct] = useState<boolean>(false);
-  const [fullPriceProducts, setFullPriceProduct] = useState<number>(0);
-  const [productsInBag, setProductsInBag] = useState<ProductBagShopping>({});
-  const [allProducts, setAllProducts] = useState<ProductProps>({});
-  const [productsInStorage, setProductsInStorage] = useState({});
+  const SendProductToDB = async (values: any) => {
+    let newValues = {
+      name: values.name,
+      description: values.description,
+      price: values.price,
+      category: values.category,
+      id: convertStringToNumbers(values.name),
+      available: true,
+      stars: 5,
+    };
 
-  function getFullPrice(newPrice: number) {
-    setFullPriceProduct((prevPrice) => prevPrice + newPrice);
-  }
+    let uploadPromises = [];
 
-  useEffect(() => {
-    let getProductsInStorage = localStorage.getItem('Shopping cart');
+    try {
+      const storageRef = ref(storage, `AllProducts/${newValues.id}`);
+      const imageBlob = new Blob([values.image as File], {
+        type: values.image.type,
+      });
 
-    if (getProductsInStorage) {
-      setProductsInStorage(getProductsInStorage);
+      const imageRef = ref(storageRef, `image_1`);
+      uploadPromises.push(uploadBytes(imageRef, imageBlob));
+
+      await Promise.all(uploadPromises);
+
+      // Assuming you have a docRef variable defined
+      const docSnapshot = await getDoc(docRef);
+      const existingData = docSnapshot.exists() ? docSnapshot.data() : {};
+
+      const newData = {
+        ...existingData,
+        [newValues.id]: {
+          ...newValues,
+        },
+      };
+
+      await setDoc(docRef, newData);
+      toast.success('Produto cadastrado');
+    } catch (error) {
+      toast.error('Produto não cadastrado');
+      console.log('Product was not registered', error);
     }
-  }, []);
 
-  useEffect(() => {
-    console.log(fullPriceProducts);
-  }, [fullPriceProducts]);
-
-  useEffect(() => {
-    const AllProducts = localStorage.getItem('All products');
-
-    if (productsInStorage && AllProducts) {
-      setProductsInBag(JSON.parse(productsInStorage));
-      setAllProducts(JSON.parse(AllProducts));
-    }
-    console.log(productsInBag);
-  }, [productsInStorage]);
-
-  useEffect(() => {
-    if (Object.values(productsInBag).length === 0) {
-      setHasProduct(false);
-    } else {
-      setHasProduct(true);
-    }
-  }, [productsInBag]);
-
-  return (
-    <>
-      <button
-        className={`button-shopping-cart ${isOpen ? 'open' : ''}`}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <Image
-          src="/icons/bag.svg"
-          alt="shopping cart"
-          layout="intrinsic"
-          width="20"
-          height="20"
-        />
-      </button>
-      <div className={`container-shopping-cart ${isOpen ? 'open' : 'closed'}`}>
-        <div className={`list-products ${isOpen ? 'open' : 'closed'}`}>
-          {hasProduct ? (
-            Object.keys(productsInBag).map(
-              (productId: string, index: number) => (
-                <ProductInBag
-                  key={index}
-                  getFullPrice={getFullPrice}
-                  id={allProducts[productId].id}
-                  name={allProducts[productId].name}
-                  image={allProducts[productId].image}
-                  price={allProducts[productId].price}
-                />
-              ),
-            )
-          ) : (
-            <h1>Adicione produtos</h1>
-          )}
-        </div>
-        <div className="container-full-price"></div>
-      </div>
-    </>
-  );
-}
- */
-
-/* 'use client';
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-
-import ProductInBag from '../section-bag-shopping/child-components/product';
-import './style-shoping-cart.css';
-
-export default function ProductCart() {
-  const [isOpen, setIsOpen] = useState<boolean>();
-  const [fullPriceProducts, setFullPriceProduct] = useState<number>(0);
-  const AllProducts = sessionStorage.getItem('All products');
-
-  function getFullPrice(newPrice: number) {
-    setFullPriceProduct(fullPriceProducts + newPrice);
-  }
-
-  const RenderProductsInThebag = () => {
-    const ProductsInTheBag = localStorage.getItem('Shopping cart');
-
-    if (ProductsInTheBag === null) {
-      return <h1>Adicione produtos</h1>;
-    } else if (AllProducts != null) {
-      let ProductsInTheBagConverted = JSON.parse(ProductsInTheBag);
-      let AllProductsConverted = JSON.parse(AllProducts);
-
-      return (
-        <div
-          className={`container-shopping-cart ${isOpen ? 'open' : 'closed'}`}
-        >
-          <div className={`list-products ${isOpen ? 'open' : 'closed'}`}>
-            {ProductsInTheBagConverted.map((element: string, index: number) => (
-              <ProductInBag
-                key={index}
-                getFullPrice={getFullPrice}
-                name={AllProductsConverted[element].name}
-                image={AllProductsConverted[element].image}
-                price={AllProductsConverted[element].price}
-              />
-            ))}
-          </div>
-        </div>
-      );
-    }
-  };
-
-  useEffect(() => {
-    console.log(fullPriceProducts);
-  }, [fullPriceProducts]);
-
-  return (
-    <>
-      <button
-        className={`button-shopping-cart ${isOpen ? 'open' : ''}`}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <Image
-          src="/icons/bag.svg"
-          alt="shopping cart"
-          layout="insintric"
-          width="20"
-          height="20"
-        />
-      </button>
-
-      {RenderProductsInThebag()}
-    </>
-  );
-}
- */
+    console.log(newValues);
+  }; */

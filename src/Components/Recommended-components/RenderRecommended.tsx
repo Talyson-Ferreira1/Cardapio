@@ -4,12 +4,12 @@ import Link from 'next/link';
 
 import { SearchProduct } from '@/Components/utils/fetchProducts';
 import { FormatCoin } from '../utils/formatCoin';
-import { UpdateAllProducts } from '../utils/UpdateAllProducts';
-import { UpdateSectionProducts } from '../utils/UpdateSectionProduct';
-import ProductsRecommended from './child-components/ProductComponente';
-import LoadingComponent from './child-components/LoadingComponente';
+import ProductsRecommended from './child/ProductComponente';
+import LoadingComponent from './child/LoadingComponente';
 
 import './recommendation-style.css';
+import { UpdateSectionProducts } from '../utils/UpdateSectionProduct';
+import { UpdateAllProducts } from '../utils/UpdateAllProducts';
 
 type SearchProps = {
   Info_Collection: string;
@@ -29,18 +29,30 @@ type ProductProps = {
   };
 };
 
-export default function RecommendationCards() {
-  const [data, setData] = useState<ProductProps>();
+export default function RenderRecommended() {
+  const [recommended, setRecommended] = useState<ProductProps>();
 
   const FetchProducts = async () => {
     let searchProps: SearchProps = {
       Info_Collection: 'Produtos',
-      Info_DocCollection: 'Recomendacoes',
-      folderNameImg: 'Recommendations',
+      Info_DocCollection: 'AllProducts',
+      folderNameImg: 'AllProducts',
     };
 
-    const allProducts = await SearchProduct(searchProps);
-    setData(allProducts);
+    let AllProducts = await SearchProduct(searchProps);
+
+    let newData: ProductProps = {};
+
+    for (let Product in AllProducts) {
+      if (AllProducts[Product].category === 'recommendation') {
+        newData = {
+          ...newData,
+          [Product]: AllProducts[Product],
+        };
+      }
+    }
+
+    setRecommended(newData);
   };
 
   const Format = (num: number) => {
@@ -48,20 +60,17 @@ export default function RecommendationCards() {
   };
 
   const renderedProducts = () => {
-    if (data) {
+    if (recommended) {
       return (
         <div className="container-all-produts">
-          {Object.keys(data).map((productId) => {
-            const currentProduct = data[productId];
+          {Object.keys(recommended).map((productId) => {
+            const currentProduct = recommended[productId];
 
             return (
               <Link
                 className="link"
                 key={productId}
-                href={{
-                  pathname: `/produto/${currentProduct.id}`,
-                  query: { data: JSON.stringify(currentProduct) },
-                }}
+                href={`/produto/${currentProduct.id}`}
                 as={`/produto/${encodeURIComponent(currentProduct.id)}`}
               >
                 <div className="container-product-card" key={productId}>
@@ -83,16 +92,23 @@ export default function RecommendationCards() {
   };
 
   useEffect(() => {
-    let alreadyExistData = sessionStorage.getItem('Recommended Products');
-
-    alreadyExistData ? setData(JSON.parse(alreadyExistData)) : FetchProducts();
+    FetchProducts();
   }, []);
 
   useEffect(() => {
-    data !== undefined &&
-      (UpdateAllProducts(data),
-      UpdateSectionProducts(data, 'Recommended Products'));
-  }, [data]);
+    let alreadyExistData = sessionStorage.getItem('Recommendation');
+
+    alreadyExistData
+      ? setRecommended(JSON.parse(alreadyExistData))
+      : FetchProducts();
+    FetchProducts();
+  }, []);
+
+  useEffect(() => {
+    recommended !== undefined &&
+      (UpdateAllProducts(recommended),
+      UpdateSectionProducts(recommended, 'Recommendation'));
+  }, [recommended]);
 
   return <>{renderedProducts()}</>;
 }

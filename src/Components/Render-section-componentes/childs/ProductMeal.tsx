@@ -7,7 +7,7 @@ interface ProductProps {
   productPrice: string;
 }
 
-import '../meals-styles.css';
+import '../renderSection.css';
 
 export default function ProductsMeal({
   productImage,
@@ -34,13 +34,3 @@ export default function ProductsMeal({
     </>
   );
 }
-/*     <div className="product-card-container" key={productId}>
-        <div className="product-image-container">
-          <img src={currentProduct.image} alt="" />
-        </div>
-
-        <h3>{currentProduct.name}</h3>
-        <p>{currentProduct.description}</p>
-        <h4>{Format(currentProduct.price)}</h4>
-      </div>
-    ); */

@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Providers } from '@/context';
 import SearchBar from '@/Components/section-header/SearchBar';
-import ButtonToOpenBagShopping from '@/Components/section-bag-shopping-copy/button';
+import ButtonToOpenBagShopping from '@/Components/Bag-shopping-components/button';
 require('dotenv').config();
 
 const inter = Inter({ subsets: ['latin'] });

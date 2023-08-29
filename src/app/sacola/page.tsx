@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import ProductBag from '@/Components/section-bag-shopping-copy/Product';
+import ProductBag from '@/Components/Bag-shopping-components/Product';
 import { FormatCoin } from '@/Components/utils/formatCoin';
 
 import './style.page-sacola.css';
@@ -48,7 +48,7 @@ export default function BagShopping() {
   const openWhatsApp = () => {
     let getBagShoppingInLocStorage = localStorage.getItem('Shopping cart');
     let getAllProductsInLocStorage = localStorage.getItem('All products');
-    let message = 'Olá! Gostaria de fazer um pedido.\n';
+    let message = '*Olá! Gostaria de fazer um pedido*.\n \n';
 
     if (getBagShoppingInLocStorage && getAllProductsInLocStorage) {
       let BagProducts = JSON.parse(getBagShoppingInLocStorage);
@@ -58,11 +58,19 @@ export default function BagShopping() {
         const quantity = BagProducts[product];
         const productName = AllProducts[product].name;
         const productDescription = AllProducts[product].description;
+        const productPrice = AllProducts[product].price;
+        const totalProductprice = productPrice * quantity;
 
-        message += `${quantity} X "${productName}": ("${productDescription}")\n`;
+        message += ` *${quantity}* x - *${productName}*: ${FormatCoin(
+          totalProductprice,
+        )}   \n (${productDescription})\n \n`;
       }
     }
 
+    message += `*Totalizando: ${FormatCoin(totalPrice)}*`;
+    /*
+    const phoneNumber = '5588993327359';
+    */
     const phoneNumber = '5588993707881';
     const encodedMessage = encodeURIComponent(message);
 

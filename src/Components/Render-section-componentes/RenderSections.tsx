@@ -2,14 +2,14 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { SearchProduct } from '../utils/fetchProducts';
 import { FormatCoin } from '../utils/formatCoin';
-import { UpdateSectionProducts } from '../utils/UpdateSectionProduct';
+import { SearchProduct } from '@/Components/utils/fetchProducts';
 import { UpdateAllProducts } from '../utils/UpdateAllProducts';
-import ProductsMeal from './chil-components/ProductComponent';
-import LoadingComponent from './chil-components/LoadingComponent';
+import { UpdateSectionProducts } from '../utils/UpdateSectionProduct';
+import ProductsMeal from './childs/ProductMeal';
+import LoadingMeals from './childs/LoadingMeals';
 
-import './meals-styles.css';
+import './renderSection.css';
 
 type SearchProps = {
   Info_Collection: string;
@@ -23,24 +23,41 @@ type ProductProps = {
     description: string;
     price: number;
     image: string;
+    category: string;
     id: string;
     available: boolean;
     stars: number;
   };
 };
 
-export default function Meals() {
-  const [data, setData] = useState<ProductProps>();
+type props = {
+  category: string;
+};
+
+export default function RenderSection({ category }: props) {
+  const [Products, setProducts] = useState<ProductProps>();
 
   const FetchProducts = async () => {
     let searchProps: SearchProps = {
       Info_Collection: 'Produtos',
-      Info_DocCollection: 'Refeicoes prontas',
-      folderNameImg: 'Meals',
+      Info_DocCollection: 'AllProducts',
+      folderNameImg: 'AllProducts',
     };
 
-    let Meals = await SearchProduct(searchProps);
-    setData(Meals);
+    let AllProducts = await SearchProduct(searchProps);
+
+    let newData: ProductProps = {};
+
+    for (let Product in AllProducts) {
+      if (AllProducts[Product].category === category) {
+        newData = {
+          ...newData,
+          [Product]: AllProducts[Product],
+        };
+      }
+    }
+
+    setProducts(newData);
   };
 
   const Format = (num: number) => {
@@ -48,18 +65,15 @@ export default function Meals() {
   };
 
   const renderedProducts = () => {
-    if (data) {
-      return Object.keys(data).map((productId) => {
-        const currentProduct = data[productId];
+    if (Products) {
+      return Object.keys(Products).map((productId) => {
+        const currentProduct = Products[productId];
 
         return (
           <Link
             className="link"
             key={productId}
-            href={{
-              pathname: `/produto/${currentProduct.id}`,
-              query: { data: JSON.stringify(currentProduct) },
-            }}
+            href={`/produto/{currentProduct.id}`}
             as={`/produto/${encodeURIComponent(currentProduct.id)}`}
           >
             <div className="meal-product-card">
@@ -74,19 +88,24 @@ export default function Meals() {
         );
       });
     } else {
-      return <LoadingComponent />;
+      return <LoadingMeals />;
     }
   };
 
   useEffect(() => {
-    let alreadyExistData = sessionStorage.getItem('Products meals');
-    alreadyExistData ? setData(JSON.parse(alreadyExistData)) : FetchProducts();
+    let alreadyExistData = sessionStorage.getItem(`${category}`);
+
+    alreadyExistData
+      ? setProducts(JSON.parse(alreadyExistData))
+      : FetchProducts();
+    FetchProducts();
   }, []);
 
   useEffect(() => {
-    data !== undefined &&
-      (UpdateAllProducts(data), UpdateSectionProducts(data, 'Products meals'));
-  }, [data]);
+    Products !== undefined &&
+      (UpdateAllProducts(Products),
+      UpdateSectionProducts(Products, `${category}`));
+  }, [Products]);
 
   return <>{renderedProducts()}</>;
 }

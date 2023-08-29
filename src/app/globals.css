@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-  --blue-color-1: #2e3a61;
+  --blue-color-1: #eabf16;
   --blue-color-2: #2655e0;
 
   --rose-color-1: #e03d6e;
@@ -11,13 +11,16 @@
 
   --gray-color-1: rgb(50, 48, 48);
   --gray-color-2: rgb(52, 52, 52);
-  --gray-color-3: rgb(91, 91, 91);
+  --gray-color-3: rgba(91, 91, 91, 0.751);
+  --gray-color-4: rgba(61, 61, 61, 0.147);
 
   --orange-color-1: #eaa558;
   --orange-color-2: #d28630;
 
   --green-color-1: rgb(9, 167, 9);
   --green-color-2: rgb(5, 126, 5);
+
+  --text-color-dark-1: rgba(79, 79, 79, 0.751);
 
   --gradiente-color-1: linear-gradient(to right, #556270a2, #4ecdc599);
 

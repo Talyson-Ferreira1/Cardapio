@@ -7,8 +7,8 @@ import { UpdateBagShopping } from '@/Components/utils/UpdateBagShopping';
 import Image from 'next/image';
 
 import { FormatCoin } from '@/Components/utils/formatCoin';
-import RenderStar from '@/Components/section-bag-shopping-copy/renderStars';
-import ReturnPage from '@/Components/section-bag-shopping-copy/button-return';
+import RenderStar from '@/Components/Bag-shopping-components/renderStars';
+import ReturnPage from '@/Components/Bag-shopping-components/button-return';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './product-details-style.css';
