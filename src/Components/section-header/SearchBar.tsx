@@ -17,35 +17,37 @@ export default function SearchBar() {
   };
 
   return (
-    <div className="container-main-input">
+    <>
       <div className="container-logo">
         <Image
-          height="70"
+          height="150"
           width="150"
           src="/images/Delicias_da_cenir.png"
           alt="Logotipo"
         />
+
+        <div className="container-input">
+          <label htmlFor="search">
+            <Image
+              width="15"
+              height="10"
+              layout="intrinsic"
+              src="/icons/lupa.svg"
+              alt="icon search"
+            />
+
+            <input
+              type="text"
+              name="search"
+              title="Pesquisar prato"
+              alt="input search product"
+              placeholder="Pesquise aqui"
+              onChange={inputChange}
+              onBlur={returnPage}
+            />
+          </label>
+        </div>
       </div>
-
-      <label htmlFor="search">
-        <Image
-          width="20"
-          height="15"
-          src="/icons/lupa.svg"
-          alt="icon search"
-          className="img-lupa"
-        />
-
-        <input
-          type="text"
-          name="search"
-          title="Pesquisar prato"
-          alt="input search product"
-          placeholder="Pesquise aqui"
-          onChange={inputChange}
-          onBlur={returnPage}
-        />
-      </label>
-    </div>
+    </>
   );
 }

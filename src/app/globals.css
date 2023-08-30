@@ -7,7 +7,8 @@
   --rose-color-1: #e03d6e;
 
   --blur-color-1: #ffffff6e;
-  --blur-color-2: rgba(167, 167, 167, 0.697);
+  --blur-color-2: rgba(217, 217, 217, 0.697);
+  --blur-color-3: rgba(234, 234, 234, 0.697);
 
   --gray-color-1: rgb(50, 48, 48);
   --gray-color-2: rgb(52, 52, 52);
@@ -19,6 +20,9 @@
 
   --green-color-1: rgb(9, 167, 9);
   --green-color-2: rgb(5, 126, 5);
+
+  --red-color-1: rgb(240, 62, 62);
+  --red-color-2: rgb(249, 72, 72);
 
   --text-color-dark-1: rgba(79, 79, 79, 0.751);
 

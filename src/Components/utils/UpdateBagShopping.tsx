@@ -13,7 +13,7 @@ type UdateProductProps = {
   action: string;
 };
 
-export function sumPrices() {
+export function getTotalPrices() {
   const productsInBagShopping = localStorage.getItem('Shopping cart');
   const allProducts = localStorage.getItem('All products');
 
@@ -31,6 +31,27 @@ export function sumPrices() {
   }
 
   localStorage.setItem('Total prices', JSON.stringify(totalPrices));
+  return totalPrices;
+}
+
+export function getAllProductsInBagShopping() {
+  let getBagShoppingInLocStorage = localStorage.getItem('Shopping cart');
+  let getAllProductsInLocStorage = localStorage.getItem('All products');
+  let newData: any = {};
+
+  if (getBagShoppingInLocStorage && getAllProductsInLocStorage) {
+    let bagShopping = JSON.parse(getBagShoppingInLocStorage);
+    let allProducts = JSON.parse(getAllProductsInLocStorage);
+
+    Object.keys(bagShopping).forEach((product) => {
+      newData[product] = {
+        ...allProducts[product],
+        quantity: bagShopping[product],
+      };
+    });
+  }
+
+  return newData;
 }
 
 export function UpdateBagShopping(data: UpdateBagShoppingProps) {
@@ -46,7 +67,7 @@ export function UpdateBagShopping(data: UpdateBagShoppingProps) {
 
   newData[data.id] = (newData[data.id] || 0) + 1;
   localStorage.setItem('Shopping cart', JSON.stringify(newData));
-  sumPrices();
+  getTotalPrices();
   return true;
 }
 
@@ -62,5 +83,17 @@ export function UdateProductInBag({ id, action }: UdateProductProps) {
     newData[id] = newData[id] - 1;
 
   localStorage.setItem('Shopping cart', JSON.stringify(newData));
-  sumPrices();
+  getTotalPrices();
+}
+
+export function deleteProductInBag(id: string) {
+  const productsInBagShopping = localStorage.getItem('Shopping cart');
+  const newData = productsInBagShopping
+    ? { ...JSON.parse(productsInBagShopping) }
+    : {};
+
+  delete newData[id];
+
+  localStorage.setItem('Shopping cart', JSON.stringify(newData));
+  getTotalPrices();
 }

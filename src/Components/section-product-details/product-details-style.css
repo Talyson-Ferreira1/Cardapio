@@ -1,0 +1,183 @@
+.button-shopping-cart {
+  background-color: var(--orange-color-2);
+  width: 3rem;
+  height: 3rem;
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  z-index: 4;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.3s;
+  box-shadow: 10px 10px 16px -9px rgba(0, 0, 0, 0.24);
+  -webkit-box-shadow: 10px 10px 16px -9px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: 10px 10px 16px -9px rgba(0, 0, 0, 0.24);
+
+  &&:hover {
+    transform: scale(1.05);
+    background-color: var(--orange-color-1);
+    box-shadow: 10px 10px 16px -9px rgba(255, 255, 255, 0.2);
+    -webkit-box-shadow: 10px 10px 16px -9px rgba(255, 255, 255, 0.2);
+    -moz-box-shadow: 10px 10px 16px -9px rgba(255, 255, 255, 0.2);
+  }
+}
+
+.button-shopping-cart.open {
+  position: fixed;
+}
+
+.container-shopping-cart {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: all 0.5s ease-in-out;
+  width: 0vw;
+  height: 100vh;
+  background: var(--gradiente-color-1);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.container-shopping-cart.open {
+  width: 100vw;
+  position: fixed;
+}
+
+.container-shopping-cart.open .list-products {
+  width: 85%;
+  height: 90%;
+  transform: translateY(100vh);
+  animation: showing 0.3s ease-in forwards 0.6s;
+  background: var(--blur-color-1);
+  border-radius: 20px;
+  padding: 1rem 1rem 21vh 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.list-products::-webkit-scrollbar {
+  height: 5px;
+}
+
+.list-products::-webkit-scrollbar-thumb {
+  background: rgba(216, 216, 216, 0.589);
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.list-products::-webkit-scrollbar-thumb:hover {
+  background: rgba(196, 196, 196, 0.589);
+}
+
+.list-products::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.list-products::-webkit-scrollbar-button {
+  display: none;
+}
+
+.container-full-price {
+  width: 100%;
+  height: 20vh;
+  background: rgba(255, 255, 255, 0.99);
+  position: fixed;
+  bottom: 5%;
+  width: 85%;
+  border-radius: 0 0 20px 20px;
+}
+
+.list-products.closed {
+  overflow: hidden;
+  display: none;
+}
+
+.container-toast {
+  position: absolute;
+  width: 100vw;
+  height: auto;
+}
+
+.container-product-shoping-bag {
+  width: 100%;
+  min-height: 80px;
+  border-radius: 10px;
+  background: var(--blur-color-1);
+  display: grid;
+  grid-template-columns: 30% 40% 10% 5% 10%;
+  grid-template-rows: 1fr 1fr;
+  overflow: hidden;
+  position: relative;
+}
+
+.container-product-shoping-bag .product-image-bag {
+  grid-column: 1;
+  grid-row: span 2;
+}
+
+.container-product-shoping-bag .increase button {
+  background-color: rgb(16, 201, 16);
+}
+
+.container-product-shoping-bag .decrease button {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+.container-product-shoping-bag h2 {
+  flex-wrap: wrap;
+  padding-left: 1rem;
+  align-self: center;
+}
+
+.container-product-shoping-bag .name-product-bag {
+  font-size: clamp(16px, 2vw, 25px);
+}
+
+.container-product-shoping-bag .price-product-bag {
+  font-size: clamp(10px, 1.5vw, 16px);
+}
+
+.container-product-shoping-bag span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem;
+  grid-row: span 2;
+}
+
+.container-product-shoping-bag span button {
+  padding: 1rem;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  font-weight: 700;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes showing {
+  from {
+    transform: translateY(100vh);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Criar um useRef para controlar os produtos */

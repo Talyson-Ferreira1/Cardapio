@@ -9,7 +9,7 @@ interface ProductProps {
 
 import '../renderSection.css';
 
-export default function ProductsMeal({
+export default function Product({
   productImage,
   productName,
   productDescription,
@@ -22,7 +22,6 @@ export default function ProductsMeal({
           src={productImage}
           alt="Product image"
           layout="intrinsic"
-          objectFit="cover"
           width={300}
           height={300}
         />

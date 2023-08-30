@@ -1,140 +1,112 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import ProductBag from '@/Components/Bag-shopping-components/Product';
-import { FormatCoin } from '@/Components/utils/formatCoin';
+import { getTotalPrices } from '@/Components/utils/UpdateBagShopping';
+import { sendRequestByWhatsapp } from '@/Components/utils/OpenWhatsapp';
+import { getAllProductsInBagShopping } from '@/Components/utils/UpdateBagShopping';
+import { deleteProductInBag } from '@/Components/utils/UpdateBagShopping';
+import { UdateProductInBag } from '@/Components/utils/UpdateBagShopping';
+import EskeletonLoading from '@/Components/Bag-shopping/EskeletonLoading';
+import TotalPrices from '@/Components/Bag-shopping/TotalPrices';
 
-import './style.page-sacola.css';
+import './bagShopping-styles.css';
+import ProductInBag from '@/Components/Bag-shopping/ProductInBag';
 
-type ProductsProps = {
-  [product: string]: {
-    name: string;
-    description: string;
-    price: number;
-    image: string;
-    id: string;
-    available: boolean;
-    stars: number;
-  };
+type Product = {
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  id: string;
+  category: string;
+  available: boolean;
+  stars: number;
+  quantity: number;
 };
 
-type ProductBagShopping = {
-  [id: string]: number;
+type ProductsProps = {
+  [id: string]: Product;
 };
 
 export default function BagShopping() {
-  const [productsInBag, setProductsInBag] = useState<ProductBagShopping>();
-  const [allProducts, setAllProducts] = useState<ProductsProps>();
-  const [totalPrice, setTotalprice] = useState<number>(0);
-  const [quantityChange, setQuantityChange] = useState<boolean>();
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [hasProductsInBag, setHasProductsInBag] = useState<boolean>(false);
+  const [productsInBag, setProductsInBag] = useState<ProductsProps>({});
 
-  const handleChange = (change: boolean) => {
-    setQuantityChange(change);
-    setTimeout(() => {
-      setQuantityChange(false);
-    }, 1000);
+  const getPrices = () => {
+    let totalpricesOfProducts = getTotalPrices();
+    setTotalPrice(totalpricesOfProducts);
   };
 
-  const UpdateTotalPrice = () => {
-    let getTotalPricesInLocStorage = localStorage.getItem('Total prices');
-
-    if (getTotalPricesInLocStorage) {
-      let prices = JSON.parse(getTotalPricesInLocStorage);
-
-      setTotalprice(prices);
-    }
+  const getAllProducts = () => {
+    let AllProductsInBag = getAllProductsInBagShopping();
+    setProductsInBag(AllProductsInBag);
   };
 
-  const openWhatsApp = () => {
-    let getBagShoppingInLocStorage = localStorage.getItem('Shopping cart');
-    let getAllProductsInLocStorage = localStorage.getItem('All products');
-    let message = '*Olá! Gostaria de fazer um pedido*.\n \n';
+  const fineshedRequest = () => {
+    sendRequestByWhatsapp();
+  };
 
-    if (getBagShoppingInLocStorage && getAllProductsInLocStorage) {
-      let BagProducts = JSON.parse(getBagShoppingInLocStorage);
-      let AllProducts = JSON.parse(getAllProductsInLocStorage);
+  const editQuantityOfProduct = (action: string, id: string) => {
+    UdateProductInBag({ id: id, action: action });
+    getAllProducts();
+    getPrices();
+  };
 
-      for (let product in BagProducts) {
-        const quantity = BagProducts[product];
-        const productName = AllProducts[product].name;
-        const productDescription = AllProducts[product].description;
-        const productPrice = AllProducts[product].price;
-        const totalProductprice = productPrice * quantity;
-
-        message += ` *${quantity}* x - *${productName}*: ${FormatCoin(
-          totalProductprice,
-        )}   \n (${productDescription})\n \n`;
-      }
-    }
-
-    message += `*Totalizando: ${FormatCoin(totalPrice)}*`;
-    /*
-    const phoneNumber = '5588993327359';
-    */
-    const phoneNumber = '5588993707881';
-    const encodedMessage = encodeURIComponent(message);
-
-    if (
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent,
-      )
-    ) {
-      // Open WhatsApp app
-      window.location.href = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
-    } else {
-      // Open WhatsApp web
-      const url = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
-      window.open(url, '_blank');
-    }
+  const deleteProduct = (id: string) => {
+    deleteProductInBag(id);
+    console.log('produto deletado', id);
+    getAllProducts();
+    getPrices();
   };
 
   useEffect(() => {
-    let getBagShoppingInLocStorage = localStorage.getItem('Shopping cart');
-    let getAllProductsInLocStorage = localStorage.getItem('All products');
-
-    if (getBagShoppingInLocStorage && getAllProductsInLocStorage) {
-      let productConvertedToObj = {
-        bagShopping: JSON.parse(getBagShoppingInLocStorage),
-        allProducts: JSON.parse(getAllProductsInLocStorage),
-      };
-
-      setProductsInBag(productConvertedToObj.bagShopping);
-      setAllProducts(productConvertedToObj.allProducts);
-    }
-    UpdateTotalPrice();
+    getPrices();
+    getAllProducts();
   }, []);
 
   useEffect(() => {
-    UpdateTotalPrice();
-  }, [quantityChange]);
+    Object.keys(productsInBag).length > 0
+      ? setHasProductsInBag(true)
+      : setHasProductsInBag(false);
+  }, [productsInBag]);
 
   return (
-    <main className="container-bag-shoping">
-      <>
-        {productsInBag && allProducts ? (
-          Object.keys(productsInBag).map((productId: string, index: number) => (
-            <ProductBag
-              key={index}
-              id={allProducts[productId].id}
-              name={allProducts[productId].name}
-              image={allProducts[productId].image}
-              price={allProducts[productId].price}
-              handleChange={handleChange}
-            />
-          ))
-        ) : (
-          <h1>Adicione produtos</h1>
-        )}
-      </>
-      <>
-        {productsInBag && allProducts && (
-          <div className="container-total-price">
-            <span>Valor total</span>
-            <span>{FormatCoin(totalPrice)}</span>
-            <button onClick={openWhatsApp}>Finalizar pedido</button>
-          </div>
-        )}
-      </>
+    <main>
+      {hasProductsInBag ? (
+        <>
+          {productsInBag ? (
+            <>
+              {Object.keys(productsInBag).map((product, index) => {
+                return (
+                  <ProductInBag
+                    key={index}
+                    quantityProduct={editQuantityOfProduct}
+                    deleteProduct={deleteProduct}
+                    product={productsInBag[product]}
+                  />
+                );
+              })}
+              <TotalPrices
+                totalPrice={totalPrice}
+                fineshedRequest={fineshedRequest}
+              />
+            </>
+          ) : (
+            <>
+              <EskeletonLoading />
+              <EskeletonLoading />
+              <EskeletonLoading />
+              <EskeletonLoading />
+              <EskeletonLoading />
+              <EskeletonLoading />
+              <EskeletonLoading />
+            </>
+          )}
+        </>
+      ) : (
+        <h2>Adicione produtos</h2>
+      )}
     </main>
   );
 }

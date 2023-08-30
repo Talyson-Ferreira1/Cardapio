@@ -6,7 +6,7 @@ import { FormatCoin } from '../utils/formatCoin';
 import { SearchProduct } from '@/Components/utils/fetchProducts';
 import { UpdateAllProducts } from '../utils/UpdateAllProducts';
 import { UpdateSectionProducts } from '../utils/UpdateSectionProduct';
-import ProductsMeal from './childs/ProductMeal';
+import Product from './childs/Product';
 import LoadingMeals from './childs/LoadingMeals';
 
 import './renderSection.css';
@@ -77,7 +77,7 @@ export default function RenderSection({ category }: props) {
             as={`/produto/${encodeURIComponent(currentProduct.id)}`}
           >
             <div className="meal-product-card">
-              <ProductsMeal
+              <Product
                 productImage={currentProduct.image}
                 productName={currentProduct.name}
                 productDescription={currentProduct.description}

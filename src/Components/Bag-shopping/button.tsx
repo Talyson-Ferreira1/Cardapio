@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-import './style-bag-shopping-componentes.css';
+import '@/app/sacola/bagShopping-styles.css';
 
 export default function ButtonToOpenBagShopping() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -13,7 +13,7 @@ export default function ButtonToOpenBagShopping() {
     <>
       {isOpen ? (
         <button
-          className="button-shopping-cart"
+          className="button-open-bag-shopping"
           onClick={() => {
             setIsOpen(!isOpen);
             router.back();
@@ -29,7 +29,7 @@ export default function ButtonToOpenBagShopping() {
         </button>
       ) : (
         <button
-          className="button-shopping-cart"
+          className="button-open-bag-shopping"
           onClick={() => {
             router.push('/sacola');
             setIsOpen(!isOpen);

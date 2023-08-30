@@ -9,15 +9,17 @@
   height: calc(100vh - 10vh);
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 300px calc(100% - 300px);
+  grid-template-rows: 50% 50% /* calc(100vh - 300px); */;
+  padding: 0 0 1rem 0;
+  overflow: hidden;
 }
 
 .container-details-img {
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translateY(-8%);
   z-index: 0;
+  background: transparent;
 }
 
 .return-button {
@@ -124,10 +126,4 @@
   grid-row: 4;
   background: rgb(210, 145, 23);
   justify-self: center;
-}
-
-@media (max-width: 500px) {
-  .details-info {
-    transform: translateY(-5vh);
-  }
 }
