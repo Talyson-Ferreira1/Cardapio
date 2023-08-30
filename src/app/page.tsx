@@ -1,7 +1,7 @@
 'use client';
 
 import './style-page.css';
-import RenderRecommended from '@/Components/Recommended-components/RenderRecommended';
+import Recommended from '@/Components/Render-recommended-components/Recommended';
 import RenderSection from '@/Components/Render-section-componentes/RenderSections';
 import TagsHeader from '@/Components/section-nav-tags/RenderTags';
 
@@ -14,27 +14,29 @@ import './style-page.css';
 export default function Home() {
   return (
     <main>
-      <section>
+      <section id="tags">
         <TagsHeader />
       </section>
-      <section>
+      <section id="recommendation">
         <h2>Recomendações</h2>
-        <RenderRecommended />
+        <div className="container-recommendation">
+          <Recommended category="recommendation" />
+        </div>
       </section>
-      <section>
+      <section id="meals">
         <h2>Refeições prontas</h2>
         <RenderSection category="meals" />
       </section>
 
-      <section>
+      <section id="drinks">
         <h2>Bebidas</h2>
         <RenderSection category="drinks" />
       </section>
-      <section>
+      <section id="desserts">
         <h2>Sobremesas</h2>
         <RenderSection category="desserts" />
       </section>
-      <section>
+      <section id="portions">
         <h2>Porções</h2>
         <RenderSection category="portions" />
       </section>

@@ -21,9 +21,9 @@ export default function Product({
         <Image
           src={productImage}
           alt="Product image"
-          layout="intrinsic"
-          width={300}
-          height={300}
+          layout="responsive"
+          width="300"
+          height="300"
         />
       </div>
 

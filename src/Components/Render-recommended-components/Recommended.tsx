@@ -1,24 +1,23 @@
 'use client';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
-
+import { fetchProductsCategory } from '../utils/fetchProducts';
 import { FormatCoin } from '../utils/formatCoin';
-import { fetchProductsCategory } from '@/Components/utils/fetchProducts';
+import ProductRecommended from './child/product';
+import Link from 'next/link';
+import LoadingComponent from './child/LoadingComponente';
 import { UpdateAllProducts } from '../utils/UpdateAllProducts';
 import { UpdateSectionProducts } from '../utils/UpdateSectionProduct';
-import Product from './childs/Product';
-import LoadingMeals from './childs/LoadingMeals';
 
-import './renderSection.css';
+import './recommendation-style.css';
 
 type ProductProps = {
   [product: string]: {
     name: string;
     description: string;
     price: number;
+    id: string;
     image: string;
     category: string;
-    id: string;
     available: boolean;
     stars: number;
   };
@@ -28,8 +27,8 @@ type props = {
   category: string;
 };
 
-export default function RenderSection({ category }: props) {
-  const [Products, setProducts] = useState<ProductProps>();
+export default function Recommended({ category }: props) {
+  const [products, setProducts] = useState<ProductProps>({});
 
   const FetchProducts = async () => {
     let AllProducts = await fetchProductsCategory(category);
@@ -38,14 +37,15 @@ export default function RenderSection({ category }: props) {
       setProducts(AllProducts);
     }
   };
+
   const Format = (num: number) => {
     return FormatCoin(num);
   };
 
   const renderedProducts = () => {
-    if (Products) {
-      return Object.keys(Products).map((productId) => {
-        const currentProduct = Products[productId];
+    if (Object.values(products).length > 0) {
+      return Object.keys(products).map((productId) => {
+        const currentProduct = products[productId];
 
         return (
           <Link
@@ -54,19 +54,17 @@ export default function RenderSection({ category }: props) {
             href={`/produto/{currentProduct.id}`}
             as={`/produto/${encodeURIComponent(currentProduct.id)}`}
           >
-            <div className="meal-product-card">
-              <Product
-                productImage={currentProduct.image}
-                productName={currentProduct.name}
-                productDescription={currentProduct.description}
-                productPrice={Format(currentProduct.price)}
-              />
-            </div>
+            <ProductRecommended
+              productImage={currentProduct.image}
+              productName={currentProduct.name}
+              productDescription={currentProduct.description}
+              productPrice={Format(currentProduct.price)}
+            />
           </Link>
         );
       });
     } else {
-      return <LoadingMeals />;
+      return <LoadingComponent />;
     }
   };
 
@@ -80,10 +78,10 @@ export default function RenderSection({ category }: props) {
   }, []);
 
   useEffect(() => {
-    Products !== undefined &&
-      (UpdateAllProducts(Products),
-      UpdateSectionProducts(Products, `${category}`));
-  }, [Products]);
+    products !== undefined &&
+      (UpdateAllProducts(products),
+      UpdateSectionProducts(products, `${category}`));
+  }, [products]);
 
   return <>{renderedProducts()}</>;
 }

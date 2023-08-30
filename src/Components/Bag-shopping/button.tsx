@@ -22,7 +22,6 @@ export default function ButtonToOpenBagShopping() {
           <Image
             src="/icons/close.svg"
             alt="shopping cart"
-            layout="intrinsic"
             width="20"
             height="20"
           />
@@ -38,7 +37,6 @@ export default function ButtonToOpenBagShopping() {
           <Image
             src="/icons/bag.svg"
             alt="shopping cart"
-            layout="intrinsic"
             width="20"
             height="20"
           />

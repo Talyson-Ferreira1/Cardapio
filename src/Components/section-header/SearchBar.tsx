@@ -24,6 +24,7 @@ export default function SearchBar() {
           width="150"
           src="/images/Delicias_da_cenir.png"
           alt="Logotipo"
+          priority
         />
 
         <div className="container-input">

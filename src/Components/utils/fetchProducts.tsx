@@ -14,11 +14,11 @@ type SearchProps = {
   folderNameImg: string;
 };
 
-type imagesProps = {
+interface imagesProps {
   [id: string]: string;
-};
+}
 
-type ProductProps = {
+interface ProductProps {
   [product: string]: {
     name: string;
     description: string;
@@ -29,7 +29,7 @@ type ProductProps = {
     available: boolean;
     stars: number;
   };
-};
+}
 
 export async function SearchProduct({
   Info_Collection,
@@ -109,4 +109,30 @@ export async function SearchProduct({
   const result: ProductProps = products;
 
   return result;
+}
+
+export async function fetchProductsCategory(category: string) {
+  try {
+    let searchProps: SearchProps = {
+      Info_Collection: 'Produtos',
+      Info_DocCollection: 'AllProducts',
+      folderNameImg: 'AllProducts',
+    };
+
+    let AllProducts = await SearchProduct(searchProps);
+    let newData: ProductProps = {};
+
+    for (let Product in AllProducts) {
+      if (AllProducts[Product].category === category) {
+        newData = {
+          ...newData,
+          [Product]: AllProducts[Product],
+        };
+      }
+    }
+
+    return newData;
+  } catch (error) {
+    console.log(error);
+  }
 }

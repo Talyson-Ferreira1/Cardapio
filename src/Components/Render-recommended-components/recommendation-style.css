@@ -1,88 +1,40 @@
-.container-all-produts {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  gap: 1rem;
-  overflow: auto;
-  padding: 1rem 2rem;
-}
-
 .container-loading-card,
-.container-product-card {
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 70% 30%;
-  overflow: hidden;
-  min-width: 300px;
+.container-recommendation-product {
+  width: 250px;
   height: 200px;
-  border-radius: 15px;
-  cursor: pointer;
-  position: relative;
-  background: #e0e0e0;
-  transition: all 0.3s;
-  box-shadow: 4px 4px 9px 1px rgba(0, 0, 0, 0.29);
-  -webkit-box-shadow: 4px 4px 9px 1px rgba(0, 0, 0, 0.29);
-  -moz-box-shadow: 4px 4px 9px 1px rgba(0, 0, 0, 0.29);
-}
-
-.container-product-card:hover {
-  transform: scale(1.03);
-}
-
-.container-product-img {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.container-product-img::before {
-  position: absolute;
-  content: '';
-  width: 100%;
-  height: 100%;
-  top: 50%;
-  left: 50%;
-  z-index: 2;
-  transform: translate(-50%, -50%);
-  background: transparent;
-  box-shadow: 0px -31px 23px -3px rgba(255, 255, 255, 1) inset;
-  -webkit-box-shadow: 0px -31px 23px -3px rgba(255, 255, 255, 1) inset;
-  -moz-box-shadow: 0px -31px 23px -3px rgba(255, 255, 255, 1) inset;
-}
-
-.container-product-img img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  z-index: 1;
-  min-height: 100%;
-  min-width: 100%;
-}
-
-.container-product-info {
-  background: white;
   display: grid;
+  border-radius: 20px;
   grid-template-columns: 100%;
-  grid-template-rows: 25% 25% 50%;
+  grid-template-rows: 60% 10% 20% 10%;
+  box-shadow: 4px 4px 9px 1px rgba(0, 0, 0, 0.29);
+  overflow: hidden;
+  padding-bottom: 0.5rem;
+}
+
+.image-recommendation-product {
+  overflow: hidden;
+  display: flex;
   align-items: center;
-  justify-items: center;
+  justify-content: center;
 }
 
-.container-product-info h3 {
+.name-recommendation-product {
   align-self: center;
-  font-size: clamp(16px, 1.5rem 32px);
+  margin: 0 1rem;
+  font-size: clamp(12px, 1vw, 25px);
 }
 
-.product-card-container p {
+.description-recommendatio-product {
+  font-size: clamp(8px, 0.8vw, 20px);
   align-self: center;
-  font-size: 0.8rem;
+  margin: 0 1rem;
 }
 
-.product-card-container h4 {
+.price-recommendation-product {
+  font-size: clamp(10px, 0.9vw, 22px);
   align-self: center;
+  margin: 0 1rem;
+  color: var(--green-color-1);
 }
 
 /* ------------------ Style of Loading component ------------------ */
@@ -90,7 +42,6 @@
   display: flex;
   gap: 1rem;
 }
-
 .container-loading-card {
   background: white;
 }
@@ -112,7 +63,6 @@
   gap: 2px;
   padding: 0.5rem 1rem;
 }
-
 .container-loading-info .eskeleton {
   height: 1rem;
   width: 100%;

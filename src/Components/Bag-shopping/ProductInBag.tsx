@@ -33,7 +33,7 @@ export default function ProductInBag({
           alt="Product image"
           width={10}
           height={10}
-          layout="intrinsic"
+          layout="responsive"
         />
       </button>
 
@@ -43,7 +43,7 @@ export default function ProductInBag({
           alt="Product image"
           width={260}
           height={260}
-          layout="intrinsic"
+          layout="responsive"
         />
       </div>
       <h2 className="name-product-bag">{product.name}</h2>
