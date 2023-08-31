@@ -8,7 +8,7 @@ export const APP_ROUTES = {
   public: {
     home: '/',
     sacola: '/sacola',
-    produto: '/produto',
+    produto: '/produto/[id]',
     buscar: '/buscar',
     login: '/login',
   },
