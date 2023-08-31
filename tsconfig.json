@@ -29,7 +29,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/Components/SearchBar",
-    "src/Components/section-product-details"
+    "src/Components/Product-details"
   ],
   "exclude": ["node_modules"]
 }

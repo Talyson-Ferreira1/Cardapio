@@ -2,13 +2,13 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { UpdateBagShopping } from '@/Components/utils/UpdateBagShopping';
+import { UpdateBagShopping } from '@/functions/UpdateBagShopping';
 
 import Image from 'next/image';
 
-import { FormatCoin } from '@/Components/utils/formatCoin';
-import RenderStar from '@/Components/section-product-details/renderStars';
-import ReturnPage from '@/Components/section-product-details/button-return';
+import { FormatCoin } from '@/functions/formatCoin';
+import RenderStar from '@/Components/Product-details/renderStars';
+import ReturnPage from '@/Components/Product-details/button-return';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './product-details-style.css';

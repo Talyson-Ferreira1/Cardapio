@@ -3,7 +3,7 @@
 import './style-page.css';
 import Recommended from '@/Components/Render-recommended-components/Recommended';
 import RenderSection from '@/Components/Render-section-componentes/RenderSections';
-import TagsHeader from '@/Components/section-nav-tags/RenderTags';
+import TagsHeader from '@/Components/section-nav/RenderTags';
 
 import './style-page.css';
 /**

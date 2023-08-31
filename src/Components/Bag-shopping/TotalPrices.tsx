@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { FormatCoin } from '../utils/formatCoin';
+import { FormatCoin } from '../../functions/formatCoin';
 
 interface PropsOfComponent {
   totalPrice: number;

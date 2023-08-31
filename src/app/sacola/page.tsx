@@ -1,11 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import { getTotalPrices } from '@/Components/utils/UpdateBagShopping';
-import { sendRequestByWhatsapp } from '@/Components/utils/OpenWhatsapp';
-import { getAllProductsInBagShopping } from '@/Components/utils/UpdateBagShopping';
-import { deleteProductInBag } from '@/Components/utils/UpdateBagShopping';
-import { UdateProductInBag } from '@/Components/utils/UpdateBagShopping';
+import { getTotalPrices } from '@/functions/UpdateBagShopping';
+import { sendRequestByWhatsapp } from '@/functions/OpenWhatsapp';
+import { getAllProductsInBagShopping } from '@/functions/UpdateBagShopping';
+import { deleteProductInBag } from '@/functions/UpdateBagShopping';
+import { UdateProductInBag } from '@/functions/UpdateBagShopping';
 import EskeletonLoading from '@/Components/Bag-shopping/EskeletonLoading';
 import TotalPrices from '@/Components/Bag-shopping/TotalPrices';
 

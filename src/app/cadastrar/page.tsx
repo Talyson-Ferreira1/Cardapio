@@ -11,10 +11,11 @@ import {
   doc,
   getDoc,
 } from 'firebase/firestore';
+
 import { app } from '@/services/firebase';
 import { ToastContainer } from 'react-toastify';
 
-import { convertStringToNumbers } from '@/Components/utils/CreateIdProduct';
+import { convertStringToNumbers } from '@/functions/CreateIdProduct';
 
 import './style-page-cadastro.css';
 

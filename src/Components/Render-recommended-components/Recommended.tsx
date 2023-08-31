@@ -1,12 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { fetchProductsCategory } from '../utils/fetchProducts';
-import { FormatCoin } from '../utils/formatCoin';
+import { fetchProductsCategory } from '../../functions/fetchProducts';
+import { FormatCoin } from '../../functions/formatCoin';
 import ProductRecommended from './child/product';
 import Link from 'next/link';
 import LoadingComponent from './child/LoadingComponente';
-import { UpdateAllProducts } from '../utils/UpdateAllProducts';
-import { UpdateSectionProducts } from '../utils/UpdateSectionProduct';
+import { UpdateAllProducts } from '../../functions/UpdateAllProducts';
+import { UpdateSectionProducts } from '../../functions/UpdateSectionProduct';
 
 import './recommendation-style.css';
 

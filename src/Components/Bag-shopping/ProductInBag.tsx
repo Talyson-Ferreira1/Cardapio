@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FormatCoin } from '../utils/formatCoin';
+import { FormatCoin } from '../../functions/formatCoin';
 
 type Product = {
   name: string;

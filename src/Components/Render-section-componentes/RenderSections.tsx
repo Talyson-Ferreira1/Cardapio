@@ -2,10 +2,10 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { FormatCoin } from '../utils/formatCoin';
-import { fetchProductsCategory } from '@/Components/utils/fetchProducts';
-import { UpdateAllProducts } from '../utils/UpdateAllProducts';
-import { UpdateSectionProducts } from '../utils/UpdateSectionProduct';
+import { FormatCoin } from '../../functions/formatCoin';
+import { fetchProductsCategory } from '@/functions/fetchProducts';
+import { UpdateAllProducts } from '../../functions/UpdateAllProducts';
+import { UpdateSectionProducts } from '../../functions/UpdateSectionProduct';
 import Product from './childs/Product';
 import LoadingMeals from './childs/LoadingMeals';
 
