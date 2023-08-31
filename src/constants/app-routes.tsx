@@ -11,5 +11,9 @@ export const APP_ROUTES = {
     produto: '/produto/[id]',
     buscar: '/buscar',
     login: '/login',
+    refeicao: '/refeicoes',
+    sobremesas: '/sobremesas',
+    porcao: '/porcao',
+    bebidas: '/bebidas',
   },
 };
