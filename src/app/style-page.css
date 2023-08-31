@@ -8,8 +8,7 @@
 }
 
 header {
-  min-height: 230px;
-  height: 10vh;
+  height: 200px;
   display: flex;
   align-items: center;
   flex-direction: column;

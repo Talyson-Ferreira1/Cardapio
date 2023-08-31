@@ -1,6 +1,6 @@
 main {
   width: 100vw;
-  height: calc(100vh - 250px);
+  height: calc(100vh - 200px);
   padding: 3rem 1rem calc(120px + 1rem) 1rem;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -42,7 +42,7 @@ main {
 
 .container-product-bag {
   width: 100%;
-  height: 150px;
+  height: 120px;
   max-width: 900px;
   min-height: 120px;
   border-radius: 20px;
@@ -229,11 +229,11 @@ main {
 /* --------------------- styles total prices --------------------- */
 
 .section-total-prices {
-  position: absolute;
-  bottom: 0;
+  position: fixed;
+  bottom: 0px;
   left: 0;
   width: 100vw;
-  height: 10vh;
+  height: 120px;
   min-height: 120px;
   background: var(--blur-color-2);
   backdrop-filter: blur(5px);
