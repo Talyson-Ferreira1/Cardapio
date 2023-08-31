@@ -44,7 +44,7 @@
 .meal-product-card .title {
   align-self: center;
   padding: 0 1rem;
-  font-size: clamp(10px, 0.8rem 32px);
+  font-size: clamp(12px, 1.5vw, 28px);
   color: var(--gray-color-2);
 }
 
