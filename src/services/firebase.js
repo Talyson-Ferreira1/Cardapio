@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+/* import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
@@ -15,6 +15,14 @@ const firebaseConfig = {
   appId: appId,
   measurementId: measurementId,
 };
+
+export const app = initializeApp(firebaseConfig);
+export const Auth = getAuth(app);
+ */
+
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { firebaseConfig } from './firebaseConfig';
 
 export const app = initializeApp(firebaseConfig);
 export const Auth = getAuth(app);
