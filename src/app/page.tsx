@@ -6,10 +6,7 @@ import RenderSection from '@/Components/Render-section-componentes/RenderSection
 import TagsHeader from '@/Components/section-nav/RenderTags';
 
 import './style-page.css';
-/**
- * Salvar os dados no SessionStorage para evitar fetch denecessário.
- * Criar um card reutilizável
- */
+import Footer from '@/Components/section-footer/GoToLoginPage';
 
 export default function Home() {
   return (
@@ -40,6 +37,7 @@ export default function Home() {
         <h2>Porções</h2>
         <RenderSection category="portions" />
       </section>
+      <Footer />
     </main>
   );
 }

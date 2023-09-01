@@ -75,7 +75,7 @@ export default function BagShopping() {
   }, [productsInBag]);
 
   return (
-    <main>
+    <main className="main-bag-shopping">
       {hasProductsInBag ? (
         <>
           {productsInBag ? (

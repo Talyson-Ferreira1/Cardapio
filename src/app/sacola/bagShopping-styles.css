@@ -1,4 +1,4 @@
-main {
+.main-bag-shopping {
   width: 100vw;
   height: calc(100vh - 200px);
   padding: 3rem 1rem calc(120px + 1rem) 1rem;
@@ -14,6 +14,7 @@ main {
 
 .button-open-bag-shopping {
   background-color: var(--orange-color-2);
+  text-justify: center;
   width: 3rem;
   height: 3rem;
   position: absolute;

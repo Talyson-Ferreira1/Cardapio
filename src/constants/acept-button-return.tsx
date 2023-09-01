@@ -13,7 +13,7 @@ export const BUTTON_RETURN = {
 
   hasButton: {
     sacola: '/sacola',
-    produto: '/produto',
+    produto: '/produto/',
     buscar: '/buscar',
   },
 };

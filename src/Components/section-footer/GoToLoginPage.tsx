@@ -1,10 +1,18 @@
+import { useRouter } from 'next/navigation';
+
+import './footer-style.css';
+
 export default function Footer() {
-  const handleClick = () => {};
+  const route = useRouter();
+
+  const handleClick = () => {
+    route.push('/login');
+  };
   return (
     <footer>
-      <section>
-        <button onClick={handleClick}>Login</button>
-      </section>
+      <button className="login-button-footer" onClick={handleClick}>
+        Login
+      </button>
     </footer>
   );
 }
