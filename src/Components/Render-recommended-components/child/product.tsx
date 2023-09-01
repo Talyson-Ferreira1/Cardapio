@@ -27,7 +27,7 @@ export default function ProductRecommended({
         />
       </div>
       <h2 className="name-recommendation-product">{productName}</h2>
-      <p className="description-recommendatio-product">{productDescription}</p>
+      <p className="description-recommendation-product">{productDescription}</p>
       <h2 className="price-recommendation-product">{productPrice}</h2>
     </div>
   );

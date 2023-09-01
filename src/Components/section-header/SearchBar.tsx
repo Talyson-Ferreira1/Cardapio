@@ -1,15 +1,20 @@
 'use client';
+import { useContext } from 'react';
 import Image from 'next/image';
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { SearchContext } from '@/context/user/user';
 
 import './style-searchBar.css';
 
 export default function SearchBar() {
+  const { setProductName } = useContext(SearchContext);
+
   const router = useRouter();
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-    router.push('/procurar-produto');
+    setProductName(e.target.value);
+
+    router.push('/buscar');
   };
 
   const returnPage = () => {

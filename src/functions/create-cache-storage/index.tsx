@@ -4,11 +4,16 @@ type ProductProps = {
     description: string;
     price: number;
     image: string;
+    category: string;
     id: string;
     available: boolean;
     stars: number;
   };
 };
+
+export function SaveProductsInCache(data: ProductProps, nameSection: string) {
+  sessionStorage.setItem(`${nameSection}`, JSON.stringify(data));
+}
 
 export function UpdateAllProducts(data: ProductProps) {
   let allProductsInStorage = localStorage.getItem('All products');

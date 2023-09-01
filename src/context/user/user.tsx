@@ -1,18 +1,18 @@
 import React, { ReactNode, createContext, useState } from 'react';
 
-export const AuthContext = createContext({
-  user: false,
-  setUser: (_user: boolean) => {},
+export const SearchContext = createContext({
+  productName: '',
+  setProductName: (_user: string) => {},
 });
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({
+export const SearchProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState(false);
+  const [productName, setProductName] = useState('');
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <SearchContext.Provider value={{ productName, setProductName }}>
       {children}
-    </AuthContext.Provider>
+    </SearchContext.Provider>
   );
 };

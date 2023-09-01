@@ -5,10 +5,12 @@ import { FormatCoin } from '../../functions/formatCoin';
 import ProductRecommended from './child/product';
 import Link from 'next/link';
 import LoadingComponent from './child/LoadingComponente';
-import { UpdateAllProducts } from '../../functions/UpdateAllProducts';
-import { UpdateSectionProducts } from '../../functions/UpdateSectionProduct';
 
 import './recommendation-style.css';
+import {
+  SaveProductsInCache,
+  UpdateAllProducts,
+} from '@/functions/create-cache-storage';
 
 type ProductProps = {
   [product: string]: {
@@ -80,7 +82,7 @@ export default function Recommended({ category }: props) {
   useEffect(() => {
     products !== undefined &&
       (UpdateAllProducts(products),
-      UpdateSectionProducts(products, `${category}`));
+      SaveProductsInCache(products, `${category}`));
   }, [products]);
 
   return <>{renderedProducts()}</>;

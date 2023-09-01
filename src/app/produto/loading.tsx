@@ -2,7 +2,7 @@ import './style-products.css';
 
 export default function LoadingProducts() {
   return (
-    <section>
+    <section className="container-loader-product">
       <div className="loader">
         <p>Cozinhando com</p>
         <div className="words">

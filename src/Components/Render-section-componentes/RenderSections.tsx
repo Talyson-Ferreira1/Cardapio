@@ -4,12 +4,15 @@ import { useEffect, useState } from 'react';
 
 import { FormatCoin } from '../../functions/formatCoin';
 import { fetchProductsCategory } from '@/functions/fetchProducts';
-import { UpdateAllProducts } from '../../functions/UpdateAllProducts';
-import { UpdateSectionProducts } from '../../functions/UpdateSectionProduct';
+
 import Product from './childs/Product';
 import LoadingMeals from './childs/LoadingMeals';
 
 import './renderSection.css';
+import {
+  SaveProductsInCache,
+  UpdateAllProducts,
+} from '@/functions/create-cache-storage';
 
 type ProductProps = {
   [product: string]: {
@@ -38,6 +41,7 @@ export default function RenderSection({ category }: props) {
       setProducts(AllProducts);
     }
   };
+
   const Format = (num: number) => {
     return FormatCoin(num);
   };
@@ -82,7 +86,7 @@ export default function RenderSection({ category }: props) {
   useEffect(() => {
     Products !== undefined &&
       (UpdateAllProducts(Products),
-      UpdateSectionProducts(Products, `${category}`));
+      SaveProductsInCache(Products, `${category}`));
   }, [Products]);
 
   return <>{renderedProducts()}</>;

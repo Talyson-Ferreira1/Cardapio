@@ -55,6 +55,15 @@
   animation: rot1 1.2s linear infinite;
 }
 
+.button-to-finish {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
+  animation: shake 0.4s ease-in infinite alternate;
+}
+
 @media (min-width: 720px) {
   .tags-shortcuts {
     justify-content: center;
@@ -64,5 +73,14 @@
 @keyframes rot1 {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes shake {
+  from {
+    right: 1rem;
+  }
+  to {
+    right: 0rem;
   }
 }
