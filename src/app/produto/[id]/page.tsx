@@ -8,7 +8,6 @@ import Image from 'next/image';
 
 import { FormatCoin } from '@/functions/formatCoin';
 import RenderStar from '@/Components/Product-details/renderStars';
-import ReturnPage from '@/Components/Product-details/button-return';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './product-details-style.css';
@@ -54,10 +53,6 @@ export default function Page({ params }: { params: { id: string } }) {
     }
   };
 
-  const returnLastPage = () => {
-    router.back();
-  };
-
   useEffect(() => {
     getDataInCache();
   }, []);
@@ -68,8 +63,6 @@ export default function Page({ params }: { params: { id: string } }) {
 
       return (
         <>
-          <ReturnPage funcReturn={returnLastPage} />
-
           <div className="container-details-img">
             <Image
               src={image}

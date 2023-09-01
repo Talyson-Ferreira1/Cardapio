@@ -5,12 +5,12 @@ import { Inter } from 'next/font/google';
 import { usePathname } from 'next/navigation';
 
 import { checkIsPublicRoute } from '@/functions/check-is-public-route';
-
 import { Providers } from '@/context';
 import SearchBar from '@/Components/section-header/SearchBar';
 import ButtonToOpenBagShopping from '@/Components/Bag-shopping/button';
 import LogoutButton from '@/Components/Logout-button/logOut';
 import ReturnToHome from '@/Components/buton-return-to-home/index';
+import ReturnToLastPage from '@/Components/button-return/index';
 
 require('dotenv').config();
 
@@ -18,7 +18,8 @@ const inter = Inter({ subsets: ['latin'] });
 
 import './style-page.css';
 import PrivateRoute from '@/Components/private-route';
-import { hasButton } from '@/functions/check-if-it-accepts-the-home-button';
+import { hasButtonHome } from '@/functions/check-if-it-accepts-the-home-button';
+import { hasButtonReturn } from '@/functions/check-if-it-accepts-the-return-button';
 
 export default function RootLayout({
   children,
@@ -28,7 +29,8 @@ export default function RootLayout({
   const pathName = usePathname();
 
   const isPublicPage = checkIsPublicRoute(pathName!);
-  const acceptsButton = hasButton(pathName);
+  const acceptsButtonHome = hasButtonHome(pathName);
+  const acceptsButtonReturn = hasButtonReturn(pathName);
 
   return (
     <Providers>
@@ -37,7 +39,8 @@ export default function RootLayout({
           <header>
             <SearchBar />
             <LogoutButton />
-            {acceptsButton && <ReturnToHome />}
+            {acceptsButtonHome && <ReturnToHome />}
+            {acceptsButtonReturn && <ReturnToLastPage />}
           </header>
           <ButtonToOpenBagShopping />
 

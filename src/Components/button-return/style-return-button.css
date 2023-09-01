@@ -1,0 +1,30 @@
+.return-button {
+  position: absolute;
+  top: 2rem;
+  left: 1rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  width: 7rem;
+  height: 3rem;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  background: var(--blur-color-1);
+  color: black;
+  cursor: pointer;
+  backdrop-filter: blur(3px);
+  z-index: 2;
+
+  &&:hover {
+    transform: scale(1.03);
+  }
+}
+
+.return-button span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}

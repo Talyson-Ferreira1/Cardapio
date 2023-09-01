@@ -4,7 +4,7 @@ main {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   /* display: grid;
   grid-template-columns: 250px 250px 250px; */
   overflow-y: auto;

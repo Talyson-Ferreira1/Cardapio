@@ -13,12 +13,7 @@ export default function SearchBar() {
   const router = useRouter();
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProductName(e.target.value);
-
     router.push('/buscar');
-  };
-
-  const returnPage = () => {
-    router.back();
   };
 
   return (
@@ -49,7 +44,6 @@ export default function SearchBar() {
               alt="input search product"
               placeholder="Pesquise aqui"
               onChange={inputChange}
-              onBlur={returnPage}
             />
           </label>
         </div>
