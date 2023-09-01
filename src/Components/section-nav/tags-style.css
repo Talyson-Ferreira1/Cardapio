@@ -36,7 +36,17 @@
   }
 }
 
-.tags-shortcuts .loader {
+.tags-shortcuts .container-loader-tags {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.tags-shortcuts .container-loader-tags span {
+  font-size: 0.8rem;
+}
+
+.tags-shortcuts .container-loader-tags .loader {
   width: 25px;
   height: 25px;
   display: flex;

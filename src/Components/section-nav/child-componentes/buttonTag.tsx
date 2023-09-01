@@ -35,14 +35,26 @@ export default function ButtonTag({
           {name}
         </>
       ) : (
-        <div className="loader">
-          <Image
-            src="/ilustracoes/loader.png"
-            alt="ilustration"
-            width="20"
-            height="20"
-            priority
-          />
+        <div className="container-loader-tags">
+          <div className="loader">
+            <Image
+              src="/ilustracoes/loader.png"
+              alt="ilustration"
+              width="20"
+              height="20"
+              priority
+            />
+          </div>
+          <span> Carregando... </span>
+          <div className="loader">
+            <Image
+              src="/ilustracoes/loader.png"
+              alt="ilustration"
+              width="20"
+              height="20"
+              priority
+            />
+          </div>
         </div>
       )}
     </button>

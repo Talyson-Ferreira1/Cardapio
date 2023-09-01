@@ -8,12 +8,12 @@ export const APP_ROUTES = {
   public: {
     home: '/',
     sacola: '/sacola',
-    produto: '/produto/[id]',
+    produto: '/produto/',
     buscar: '/buscar',
     login: '/login',
     refeicao: '/refeicoes',
     sobremesas: '/sobremesas',
-    porcao: '/porcao',
+    porcoes: '/porcoes',
     bebidas: '/bebidas',
   },
 };

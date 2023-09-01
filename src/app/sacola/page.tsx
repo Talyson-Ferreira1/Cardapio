@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 import { getTotalPrices } from '@/functions/UpdateBagShopping';
 import { sendRequestByWhatsapp } from '@/functions/OpenWhatsapp';
@@ -47,22 +48,24 @@ export default function BagShopping() {
     sendRequestByWhatsapp();
   };
 
+  const refresh = () => {
+    getPrices();
+    getAllProducts();
+  };
+
   const editQuantityOfProduct = (action: string, id: string) => {
     UdateProductInBag({ id: id, action: action });
-    getAllProducts();
-    getPrices();
+    refresh();
   };
 
   const deleteProduct = (id: string) => {
     deleteProductInBag(id);
     console.log('produto deletado', id);
-    getAllProducts();
-    getPrices();
+    refresh();
   };
 
   useEffect(() => {
-    getPrices();
-    getAllProducts();
+    refresh();
   }, []);
 
   useEffect(() => {
@@ -105,7 +108,19 @@ export default function BagShopping() {
           )}
         </>
       ) : (
-        <h2>Adicione produtos</h2>
+        <div className="container-empty-bag">
+          <h2>Sua sacola está vazia</h2>
+
+          <Image
+            src="/ilustracoes/bag-shopping.png"
+            alt="empty bag ilustration"
+            width="150"
+            height="150"
+            layout="intrinsic"
+          />
+
+          <h2>adicione produtos</h2>
+        </div>
       )}
     </main>
   );
